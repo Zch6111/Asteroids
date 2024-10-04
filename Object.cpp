@@ -4,11 +4,11 @@
     void Object:: update(float deltaTime){
 
     };// Updates the object’s state based on time elapsed (deltaTime).
-    void Object::render();//Draws the object on the screen.
+
     bool Object::checkCollision(const Object& other) const{
 
     };// Checks if this object is colliding with another object (other).
-    void Object::onCollision(Object& other);//Handles the logic when a collision with another object occurs.
+    void Object::onCollision(Object& other){};//Handles the logic when a collision with another object occurs.
 //Getters
     Vector2D Object::getPosition() const{
         return position;
@@ -32,4 +32,6 @@
     void Object::setRotation(float newRotation){
         rotation=newRotation;
     };// Sets the object’s rotation to newRotation.
-    void Object::setActive(bool isActive);// Sets the object’s active status.
+    void Object::setActive(bool isActive){
+        active=isActive;
+    };// Sets the object’s active status.
