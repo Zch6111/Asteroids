@@ -1,5 +1,6 @@
 #include"Object.h"
 #include<vector>
+#include <SFML/Graphics.hpp>
 
     void Object:: update(float deltaTime){
 
