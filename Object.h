@@ -1,9 +1,6 @@
 #ifndef OBJECT_H
-#define OBLECT_H
-struct Vector2D{
-    int x;
-    int y;
-};
+#define OBJECT_H
+#include <SFML/Graphics.hpp>
 
 class Object{
 private:
