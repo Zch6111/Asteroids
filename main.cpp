@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include "Object.h"
+
 int main()
 {
     // create the window
@@ -16,6 +18,10 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        // check for user input
+
+        // update game
 
         // clear the window with black color
         window.clear(sf::Color::Black);
