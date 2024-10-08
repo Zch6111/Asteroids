@@ -4,7 +4,10 @@
 #include"Player.h"
 #include"Upgrade.h"
 class SpeedUpgrade :public Upgrade{
+    private:
+    float speedIncrease;
  public:
+ SpeedUpgrade(float increaseAmount);
 void applyToPlayer(Player& player)override;// Applies the upgrade effect to the player.
    
 };

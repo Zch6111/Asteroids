@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include"Object.h"
+#include"Upgrade.h"
 class Player:public Object{
 private:
 int lives;// The number of lives the player has remaining.
