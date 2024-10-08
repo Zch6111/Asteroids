@@ -11,10 +11,10 @@
     };// Checks if this object is colliding with another object (other).
     void Object::onCollision(Object& other){};//Handles the logic when a collision with another object occurs.
 //Getters
-    Vector2D Object::getPosition() const{
+    sf::Vector2f Object::getPosition() const{
         return position;
     };// Returns the object’s current position.
-    Vector2D Object::getVelocity() const{
+    sf::Vector2f Object::getVelocity() const{
         return velocity;
     };// Returns the object’s current velocity.
     float Object::getRotation() const{
@@ -24,10 +24,10 @@
         return active;
     };// Returns whether the object is active.
 //Setters
-    void Object::setPosition(const Vector2D& newPosition){
+    void Object::setPosition(const sf::Vector2f& newPosition){
         position=newPosition;
     };//Sets the object’s position to newPosition.
-    void Object::setVelocity(const Vector2D& newVelocity){
+    void Object::setVelocity(const sf::Vector2f& newVelocity){
         velocity=newVelocity;
     };// Sets the object’s velocity to newVelocity.
     void Object::setRotation(float newRotation){

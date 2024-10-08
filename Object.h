@@ -4,8 +4,8 @@
 
 class Object{
 private:
-    Vector2D position;
-    Vector2D velocity;
+    sf::Vector2f position;
+    sf::Vector2f velocity;
     float rotation;
     bool active;
 
@@ -15,13 +15,13 @@ public:
     bool checkCollision(const Object& other) const;// Checks if this object is colliding with another object (other).
     void onCollision(Object& other);//Handles the logic when a collision with another object occurs.
 //Getters
-    Vector2D getPosition() const;// Returns the object’s current position.
-    Vector2D getVelocity() const;// Returns the object’s current velocity.
+    sf::Vector2f getPosition() const;// Returns the object’s current position.
+    sf::Vector2f getVelocity() const;// Returns the object’s current velocity.
     float getRotation() const; //Returns the object’s current rotation angle.
     bool isActive() const;// Returns whether the object is active.
 //Setters
-    void setPosition(const Vector2D& newPosition);//Sets the object’s position to newPosition.
-    void setVelocity(const Vector2D& newVelocity);// Sets the object’s velocity to newVelocity.
+    void setPosition(const sf::Vector2f& newPosition);//Sets the object’s position to newPosition.
+    void setVelocity(const sf::Vector2f& newVelocity);// Sets the object’s velocity to newVelocity.
     void setRotation(float newRotation);// Sets the object’s rotation to newRotation.
     void setActive(bool isActive);// Sets the object’s active status.
 
