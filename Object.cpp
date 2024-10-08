@@ -3,10 +3,17 @@
 #include <SFML/Graphics.hpp>
 
     void Object:: update(float deltaTime){
+        //position
+        position += velocity * deltaTime;
 
     };// Updates the object’s state based on time elapsed (deltaTime).
 
     bool Object::checkCollision(const Object& other) const{
+        //check distance berwtween.....
+        float distance = std::sqrt(
+        std::pow(position.x - other.position.x, 2) + 
+        std::pow(position.y - other.position.y, 2)
+    );
 
     };// Checks if this object is colliding with another object (other).
     void Object::onCollision(Object& other){};//Handles the logic when a collision with another object occurs.
