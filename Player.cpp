@@ -1,10 +1,23 @@
 #include <SFML/Graphics.hpp>
 #include"Object.h"
 #include"Player.h"
-void handleInput(const Input& input);// Processes user input (input) for movement and actions.
-void fireProjectile();// Creates and fires a new projectile if the fire cooldown allows.
-void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
-void respawn();// Resets the player’s position and state after losing a life.
+void Player::handleInput(const sf::Event& input){};// Processes user input (input) for movement and actions.
+void Player::fireProjectile(){
+    if (fireCooldown <= 0) {
+        // Create and fire a new projectile
+        // Add projectile logic here, e.g., creating a new projectile and adding it to the game world
+        fireCooldown = fireRate;  // Reset the fire cooldown
+    }
+};// Creates and fires a new projectile if the fire cooldown allows.
+void Player::applyUpgrade(const Upgrade& upgrade){
+   upgrade.applyToPlayer(*this);  // Apply the upgrade to the playe
+};// Applies an upgrade’s effects to the player.
+void Player::respawn(){
+    setPosition(sf::Vector2f(0, 0));  // Reset player position to the center
+    setVelocity(sf::Vector2f(0, 0));  // Reset velocity
+    setRotation(0.0f);  // Reset rotation
+    setActive(true);  // Make sure the player is active
+};// Resets the player’s position and state after losing a life.
 //Getters:
 int Player::getLives() const{
     return lives;
@@ -20,6 +33,7 @@ float Player::getSpeed() const{
     return speed;
 };//: Returns the player’s mo;vement speed.
 float Player::getRotationSpeed() const{
+    return rotationSpeed;
 
 };//: Returns the player’s rotation speed.
 float Player::getFireRate() const{
