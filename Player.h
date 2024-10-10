@@ -11,13 +11,13 @@ float speed;// The player’s movement speed.
 float rotationSpeed;// The speed at which the player can rotate.
 float fireRate;// The rate at which the player can fire projectiles.
 bool shieldActive;// Indicates whether the player’s shield is active.
-std::vector<UpgradeType> upgrades;// A list of upgrades the player has collected.
+std::vector<Upgrade*> upgrades;// A list of upgrades the player has collected.
 float fireCooldown ;//Time remaining until the player can fire again.
 
 public:
 void handleInput(const sf::Event& input);// Processes user input (input) for movement and actions.
 void fireProjectile();// Creates and fires a new projectile if the fire cooldown allows.
-void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
+void applyUpgrade( Upgrade& upgrade);// Applies an upgrade’s effects to the player.
 void respawn();// Resets the player’s position and state after losing a life.
 //Getters:
 int getLives() const;//Returns the number of lives remaining.

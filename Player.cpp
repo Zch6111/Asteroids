@@ -4,12 +4,13 @@
 void Player::handleInput(const sf::Event& input){};// Processes user input (input) for movement and actions.
 void Player::fireProjectile(){
     if (fireCooldown <= 0) {
-        // Create and fire a new projectile
+        // Create and fire a new projectil
         // Add projectile logic here
+        
         fireCooldown = fireRate;  // Reset the fire cooldown
     }
 };// Creates and fires a new projectile if the fire cooldown allows.
-void Player::applyUpgrade(const Upgrade& upgrade){
+void Player::applyUpgrade( Upgrade& upgrade){
    upgrade.applyToPlayer(*this);  // Apply the upgrade to the playe
 };// Applies an upgrade’s effects to the player.
 void Player::respawn(){
