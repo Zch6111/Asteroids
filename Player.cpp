@@ -2,7 +2,42 @@
 #include"Object.h"
 #include"Player.h"
 #include"Projectile.h"
-void Player::handleInput(const sf::Event& input){};// Processes user input (input) for movement and actions.
+void Player::handleInput(const sf::Event& input) {
+    // Player movement: tank-style controls (rotate left/right, move forward/backward)
+    
+    // Rotate the player left (using the Left arrow key or A key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        setRotation(getRotation() - rotationSpeed);  // Rotate counterclockwise
+    }
+
+    // Rotate the player right (using the Right arrow key or D key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        setRotation(getRotation() + rotationSpeed);  // Rotate clockwise
+    }
+
+    // Move the player forward (using the Up arrow key or W key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        // Calculate the direction based on the current rotation
+        sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
+
+        // Update the player's velocity (moving forward)
+        setVelocity(getVelocity() + speed * direction);  // Add to current velocity in the forward direction
+    }
+
+    // Move the player backward (using the Down arrow key or S key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        // Calculate the direction based on the current rotation
+        sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
+
+        // Update the player's velocity (moving backward)
+        setVelocity(getVelocity() - speed * direction);  // Add to current velocity in the backward direction
+    }
+
+    // Player firing (using the Space key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        fireProjectile();  // Call the function to fire a projectile if the fire cooldown allows it
+    }
+}
 void Player::fireProjectile() {
     if (fireCooldown <= 0) {
         // Assuming the player has a shape (like a triangle for a spaceship) and the projectile moves forward
