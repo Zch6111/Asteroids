@@ -1,30 +1,64 @@
-#include"Object.h"
+#include "Projectile.h"
+#include"Update.h"
+#include "Object.h"
 #include <SFML/Graphics.hpp>
-#include"Projectile.h"
+// Constructor for initializing the projectile
+Projectile::Projectile(sf::Shape* shape, float projectileSpeed, const sf::Vector2f& startPosition, const sf::Vector2f& projectileDirection, Object* firingSource)
+    : Object(shape), speed(projectileSpeed), direction(projectileDirection), source(firingSource) {
+    setPosition(startPosition);  // Initialize the starting position of the projectile
+}
 
-void Projectile::update(float deltaTime){
-   setPosition(getPosition());
-    
+// Update function to move the projectile forward based on its speed and direction
+void Projectile::update(float deltaTime) {
+    if (!isActive()) return;
 
-};// Moves the projectile forward based on its speed and direction.
-void Projectile::checkOutOfBounds(){};// Deactivates the projectile if it leaves the screen bounds.
-//Getters:
-float Projectile::getSpeed() const{
+    // Calculate the new position: position += direction * speed * deltaTime
+    sf::Vector2f newPosition = getPosition() + direction * speed * deltaTime;
+    setPosition(newPosition);
+
+    // Update the shape position to reflect the projectile's new position
+    getShape()->setPosition(newPosition);
+
+    // Check if the projectile has gone out of bounds
+    checkOutOfBounds();
+}
+
+// Check if the projectile is out of bounds, deactivate it if it is
+void Projectile::checkOutOfBounds() {
+    sf::Vector2f pos = getPosition();
+
+    // Assuming screen bounds are (0, 0) to (windowWidth, windowHeight)
+    const float windowWidth = 800.f;  // Example width, adjust as needed
+    const float windowHeight = 600.f;  // Example height, adjust as needed
+
+    // Check if the projectile is outside the screen bounds
+    if (pos.x < 0 || pos.x > windowWidth || pos.y < 0 || pos.y > windowHeight) {
+        setActive(false);  // Deactivate the projectile
+    }
+}
+
+// Getters
+float Projectile::getSpeed() const {
     return speed;
-};// Returns the projectile’s speed.
-sf::Vector2f Projectile::getDirection() const{
+}
+
+sf::Vector2f Projectile::getDirection() const {
     return direction;
-};// Returns the projectile’s direction.
-Object* Projectile::getSource() const{
+}
+
+Object* Projectile::getSource() const {
     return source;
-};// Returns a pointer to the source object.
-//Setters:
-void Projectile::setSpeed(float newSpeed){
+}
+
+// Setters
+void Projectile::setSpeed(float newSpeed) {
     speed = newSpeed;
-};// Sets the projectile’s speed to newSpeed.
-void Projectile::setDirection(const sf::Vector2f& newDirection){
-    direction=newDirection;
-};//Sets the projectile’s direction to newDirection.
-void Projectile::setSource(Object* newSource){
-    source=newSource;
-};//: Sets the source object to newSource.
+}
+
+void Projectile::setDirection(const sf::Vector2f& newDirection) {
+    direction = newDirection;
+}
+
+void Projectile::setSource(Object* newSource) {
+    source = newSource;
+}
