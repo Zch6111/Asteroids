@@ -8,7 +8,8 @@ int main()
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
-    Object test;
+    sf::CircleShape shape(10.f, 6);
+    Object test(&shape);
 
     sf::Vector2f velocity(2.f, 1.5f);
     test.setVelocity(velocity);
@@ -38,7 +39,7 @@ int main()
 
         // draw everything here...
         // window.draw(...);
-        window.draw(test.getShape());
+        window.draw(*(test.getShape()));
         // end the current frame
         window.display();
     }

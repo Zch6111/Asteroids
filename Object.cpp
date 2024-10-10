@@ -2,8 +2,8 @@
 #include<vector>
 #include <SFML/Graphics.hpp>
 
-Object::Object(){
-    shape = sf::CircleShape(10.f, 3);
+Object::Object(sf::Shape* objectShape){
+    shape = objectShape;
     sf::Vector2f zero(0.f,0.f);
     setPosition(zero);
     setVelocity(zero);
@@ -12,8 +12,8 @@ Object::Object(){
     active = 1;
 };
 
-Object::Object(float radius, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation, float originRotationSpeed){
-    shape = sf::CircleShape(radius, 32);
+Object::Object(sf::Shape* objectShape, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation, float originRotationSpeed){
+    shape = objectShape;
     setPosition(originPosition);
     setVelocity(originVelocity);
     setRotation(originRotation);
@@ -28,8 +28,8 @@ void Object::update(float deltaTime){
     setPosition(position);
     rotation += rotationSpeed*deltaTime;
     setRotation(rotation);
-    shape.setPosition(position);
-    shape.setRotation(rotation);
+    (*shape).setPosition(position);
+    (*shape).setRotation(rotation);
 };// Updates the object’s state based on time elapsed (deltaTime).
 
 bool Object::checkCollision(Object other){
@@ -51,7 +51,7 @@ float Object::getRotation(){
 bool Object::isActive(){
     return active;
 };// Returns whether the object is active.
-sf::CircleShape Object::getShape(){
+sf::Shape* Object::getShape(){
     return shape;
 };
 
