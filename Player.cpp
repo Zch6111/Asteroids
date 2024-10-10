@@ -9,7 +9,7 @@ void Player::fireProjectile(){
         fireCooldown = fireRate;  // Reset the fire cooldown
     }
 };// Creates and fires a new projectile if the fire cooldown allows.
-void Player::applyUpgrade(const Upgrad& upgrade){
+void Player::applyUpgrade(const Upgrade& upgrade){
    upgrade.applyToPlayer(*this);  // Apply the upgrade to the playe
 };// Applies an upgrade’s effects to the player.
 void Player::respawn(){
