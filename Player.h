@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include"Object.h"
 #include"Upgrade.h"
+#include"Projectile.h"
 class Player:public Object{
 private:
 int lives;// The number of lives the player has remaining.

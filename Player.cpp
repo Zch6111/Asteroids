@@ -1,15 +1,26 @@
 #include <SFML/Graphics.hpp>
 #include"Object.h"
 #include"Player.h"
+#include"Projectile.h"
 void Player::handleInput(const sf::Event& input){};// Processes user input (input) for movement and actions.
-void Player::fireProjectile(){
+void Player::fireProjectile() {
     if (fireCooldown <= 0) {
-        // Create and fire a new projectil
-        // Add projectile logic here
+        // Assuming the player has a shape (like a triangle for a spaceship) and the projectile moves forward
+        sf::RectangleShape* projectileShape = new sf::RectangleShape(sf::Vector2f(5.f, 10.f));  // A simple rectangular bullet
+        projectileShape->setFillColor(sf::Color::Yellow);
+
+        // The direction is based on the player's current rotation
+        sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
         
+        // Create the projectile
+        Projectile* projectile = new Projectile(projectileShape, 300.f, getPosition(), direction, this);
+
+        // Add the projectile to the game's list of active projectiles (you would need to maintain this list)
+        activeProjectiles.push_back(std::shared_ptr<Projectile>(projectile));  // Assuming a list of shared_ptr
+       
         fireCooldown = fireRate;  // Reset the fire cooldown
     }
-};// Creates and fires a new projectile if the fire cooldown allows.
+}
 void Player::applyUpgrade( Upgrade& upgrade){
    upgrade.applyToPlayer(*this);  // Apply the upgrade to the playe
 };// Applies an upgrade’s effects to the player.
