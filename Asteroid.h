@@ -5,9 +5,9 @@
 
 class Asteroid: public Object{
 private:
-
+    int size;
 public:
-    Asteroid();
+    Asteroid(int size);
 };
 
 #endif
