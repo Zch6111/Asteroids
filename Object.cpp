@@ -3,27 +3,33 @@
 #include <SFML/Graphics.hpp>
 
 Object::Object(){
-    test = sf::CircleShape(10.f, 32);
+    shape = sf::CircleShape(10.f, 3);
     sf::Vector2f zero(0.f,0.f);
     setPosition(zero);
     setVelocity(zero);
     setRotation(0);
+    setRotationSpeed(0);
     active = 1;
 };
 
-Object::Object(float radius, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation){
-    test = sf::CircleShape(radius, 32);
+Object::Object(float radius, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation, float originRotationSpeed){
+    shape = sf::CircleShape(radius, 32);
     setPosition(originPosition);
     setVelocity(originVelocity);
     setRotation(originRotation);
+    setRotation(originRotationSpeed);
     active = 1;
 };
 
-void Object::update(){
-    position += velocity;
+void Object::update(float deltaTime){
+    if (active==0) {return;}
+
+    position += velocity*deltaTime;
     setPosition(position);
+    rotation += rotationSpeed*deltaTime;
     setRotation(rotation);
-    test.setPosition(position);
+    shape.setPosition(position);
+    shape.setRotation(rotation);
 };// Updates the object’s state based on time elapsed (deltaTime).
 
 bool Object::checkCollision(Object other){
@@ -46,7 +52,7 @@ bool Object::isActive(){
     return active;
 };// Returns whether the object is active.
 sf::CircleShape Object::getShape(){
-    return test;
+    return shape;
 };
 
 
@@ -60,6 +66,9 @@ void Object::setVelocity(sf::Vector2f newVelocity){
 void Object::setRotation(float newRotation){
     rotation=newRotation;
 };// Sets the object’s rotation to newRotation.
+void Object::setRotationSpeed(float newRotationSpeed){
+    rotationSpeed=newRotationSpeed;
+};
 void Object::setActive(bool isActive){
     active=isActive;
 };// Sets the object’s active status.

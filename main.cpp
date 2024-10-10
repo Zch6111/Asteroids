@@ -12,10 +12,14 @@ int main()
 
     sf::Vector2f velocity(2.f, 1.5f);
     test.setVelocity(velocity);
+    test.setRotationSpeed(2.f);
 
     // run the program as long as the window is open
+    sf::Clock clock;
     while (window.isOpen())
     {
+        sf::Time elapsed = clock.restart();
+        float deltaTime = 60 * elapsed.asSeconds();
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
@@ -28,7 +32,7 @@ int main()
         // check for user input
 
         // update game
-        test.update();
+        test.update(deltaTime);
         // clear the window with black color
         window.clear(sf::Color::Black);
 
