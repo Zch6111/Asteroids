@@ -1,9 +1,18 @@
-#include"Object.h"
-#include"Player.h"
-#include"Upgrade.h"
-#include"SpeedUpgrade.h"
-void SpeedUpgrade::applyToPlayer(Player& player)  {
-        float currentSpeed = player.getSpeed();
-        player.setSpeed(currentSpeed + speedIncrease);  // Increase player's speed
+#include "SpeedUpgrade.h"
+
+// Constructor creates a green square for SpeedUpgrade
+SpeedUpgrade::SpeedUpgrade(float increaseAmount)
+    : Upgrade(new sf::RectangleShape(sf::Vector2f(20.f, 20.f))), speedIncrease(increaseAmount) {
+    
+    // Set the color to green for speed upgrade
+    sf::RectangleShape* shape = dynamic_cast<sf::RectangleShape*>(getShape());
+    if (shape) {
+        shape->setFillColor(sf::Color::Green);
     }
-SpeedUpgrade::SpeedUpgrade(float increaseAmount) : speedIncrease(increaseAmount) {};
+}
+
+// Applies the speed increase to the player
+void SpeedUpgrade::applyToPlayer(Player& player) {
+    float currentSpeed = player.getSpeed();   // Get current player speed
+    player.setSpeed(currentSpeed + speedIncrease);  // Increase the player's speed
+}

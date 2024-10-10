@@ -2,14 +2,13 @@
 #define LIVESUPGRADE_H
 
 #include "Upgrade.h"
-#include "Player.h"
 
 class LivesUpgrade : public Upgrade {
 public:
-   
+    // Constructor for LivesUpgrade
     LivesUpgrade();
 
-
+    // Applies the life upgrade to the player
     void applyToPlayer(Player& player) override;
 };
 

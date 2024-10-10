@@ -1,11 +1,19 @@
 #ifndef UPGRADE_H
 #define UPGRADE_H
-#include"Object.h"
-#include"Player.h"
-class Upgrade :public Object{
- public:
-virtual void applyToPlayer(Player& player)=0;// Applies the upgrade effect to the player.
-virtual ~Upgrade() = default;
-   
+
+#include "Player.h"
+#include "Object.h"
+#include <SFML/Graphics.hpp>
+
+class Upgrade : public Object {
+public:
+    // Constructor for upgrades, using the Object constructor to pass shape and other attributes
+    Upgrade(sf::RectangleShape* objectShape);
+
+    // Abstract function to apply an upgrade to the player
+    virtual void applyToPlayer(Player& player) = 0;
+
+    virtual ~Upgrade() = default;
 };
+
 #endif

@@ -1,14 +1,18 @@
 #ifndef SPEEDUPGRADE_H
 #define SPEEDUPGRADE_H
-#include"Object.h"
-#include"Player.h"
-#include"Upgrade.h"
-class SpeedUpgrade :public Upgrade{
-    private:
-    float speedIncrease;
- public:
- SpeedUpgrade(float increaseAmount);
-void applyToPlayer(Player& player)override;// Applies the upgrade effect to the player.
-   
+
+#include "Upgrade.h"
+
+class SpeedUpgrade : public Upgrade {
+private:
+    float speedIncrease;  // Amount to increase player's speed
+
+public:
+    // Constructor for SpeedUpgrade
+    SpeedUpgrade(float increaseAmount);
+
+    // Applies the speed upgrade to the player
+    void applyToPlayer(Player& player) override;
 };
+
 #endif
