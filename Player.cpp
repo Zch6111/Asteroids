@@ -1,60 +1,73 @@
 #include <SFML/Graphics.hpp>
+#include <cmath>
+
 #include"Object.h"
 #include"Player.h"
-void Player::handleInput(const sf::Event& input){};// Processes user input (input) for movement and actions.
-void Player::fireProjectile(){
-    if (fireCooldown <= 0) {
-        // Create and fire a new projectile
-        // Add projectile logic here
-        fireCooldown = fireRate;  // Reset the fire cooldown
-    }
-};// Creates and fires a new projectile if the fire cooldown allows.
-void Player::applyUpgrade(const Upgrade& upgrade){
-   upgrade.applyToPlayer(*this);  // Apply the upgrade to the playe
-};// Applies an upgrade’s effects to the player.
-void Player::respawn(){
-    setPosition(sf::Vector2f(0, 0));  // Reset player position to the center
-    setVelocity(sf::Vector2f(0, 0));  // Reset velocity
-    setRotation(0.0f);  // Reset rotation
-    setActive(true);  // Make sure the player is active
-};// Resets the player’s position and state after losing a life.
-//Getters:
-int Player::getLives() const{
-    return lives;
 
-};//Returns the number of lives remaining.
-int Player:: getScore() const{
-    return score;
-};//: Returns the current score.
-bool Player::isShieldActive() const{
-    return shieldActive;
-};//: Returns whether the shield is active.
-float Player::getSpeed() const{
-    return speed;
+const sf::Vector2f centreOfScreen(400.f, 300.f);
+
+Player::Player(): Object(new sf::CircleShape(20, 3)){
+    sf::Shape* shape = getShape();
+    shape->setOrigin(20, 20);
+    (*shape).setFillColor(sf::Color(50, 50, 50));
+    shape->setOutlineThickness(1.f);
+    shape->setOutlineColor(sf::Color(255, 255, 255));
+    setPosition(centreOfScreen);
+    maxVelocity = 10.f;
+    maxRotationSpeed = 10.f;
+};
+
+void Player::handleInput(const sf::Event& input){
+    // Player movement: tank-style controls (rotate left/right, move forward/backward)
+    
+    // Rotate the player left (using the Left arrow key or A key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (getRotationSpeed() < maxRotationSpeed){
+            setRotationSpeed(getRotationSpeed() + 0.5f);
+        }
+    }
+
+    // Rotate the player right (using the Right arrow key or D key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (getRotationSpeed() < - maxRotationSpeed){
+            setRotationSpeed(getRotationSpeed() -0.5f);
+        }
+    }
+
+    // Move the player forward (using the Up arrow key or W key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
+        sf::Vector2f newVelocity = getVelocity() + direction;
+        float potentialMagnitude = sqrt(pow(newVelocity.x, 2) + pow(newVelocity.y, 2));
+        if (potentialMagnitude < maxVelocity){
+            setVelocity(newVelocity);
+        }
+    }
+
+    // Move the player backward (using the Down arrow key or S key)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
+        sf::Vector2f newVelocity = getVelocity() + direction;
+        float potentialMagnitude = sqrt(pow(newVelocity.x, 2) + pow(newVelocity.y, 2));
+        if (potentialMagnitude < maxVelocity){
+            setVelocity(newVelocity);
+        }
+    }
+};// Processes user input (input) for movement and actions.
+
+//Getters:
+float Player::getMaxVelocity() const{
+    return maxVelocity;
 };//: Returns the player’s mo;vement speed.
-float Player::getRotationSpeed() const{
-    return rotationSpeed;
+float Player::getMaxRotationSpeed() const{
+    return maxRotationSpeed;
 
 };//: Returns the player’s rotation speed.
-float Player::getFireRate() const{
-    return fireRate;
-};//: Returns the player’s fire rate.
+
 //Setters:
-void Player::setLives(int newLives){
-    lives=newLives;
-};//: Sets the number of lives to newLives.
-void Player::setScore(int newScore){
-    score=newScore;
-};//: Sets the score to newScore.
-void Player::setShieldActive(bool isActive){
-    shieldActive=isActive;
-};//: Activates or deactivates the shield.
-void Player::setSpeed(float newSpeed){
-    speed=newSpeed;
+void Player::setMaxVelocity(float maxVelocity){
+    this->maxVelocity = maxVelocity;
 };//: Sets the movement speed to newSpeed.
-void Player::setRotationSpeed(float newRotationSpeed){
-    rotationSpeed=newRotationSpeed;
+void Player::setMaxRotationSpeed(float maxRotationSpeed){
+    this->maxRotationSpeed = maxRotationSpeed;
 };//: Sets the rotation speed to newRotationSpeed.
-void Player::setFireRate(float newFireRate){
-    fireRate=newFireRate;
-};//: Sets the fire rate to newFireRate.
