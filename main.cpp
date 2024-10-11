@@ -2,18 +2,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "Object.h"
+#include "Player.h"
 
 int main()
 {
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
-    sf::CircleShape shape(10.f, 6);
-    Object test(&shape);
-
-    sf::Vector2f velocity(2.f, 1.5f);
-    test.setVelocity(velocity);
-    test.setRotationSpeed(2.f);
+    Player help();
 
     // run the program as long as the window is open
     sf::Clock clock;
@@ -28,18 +24,20 @@ int main()
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
+            
+            help.handleInput(event.type);
         }
 
         // check for user input
 
         // update game
-        test.update(deltaTime);
+        help.update(deltaTime);
         // clear the window with black color
         window.clear(sf::Color::Black);
 
         // draw everything here...
         // window.draw(...);
-        window.draw(*(test.getShape()));
+        window.draw(*(help.getShape()));
         // end the current frame
         window.display();
     }
