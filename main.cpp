@@ -9,7 +9,7 @@ int main()
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
-    Player help();
+    Player help;
 
     // run the program as long as the window is open
     sf::Clock clock;
@@ -25,7 +25,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             
-            help.handleInput(event.type);
+            help.handleInput(event);
         }
 
         // check for user input

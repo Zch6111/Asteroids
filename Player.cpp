@@ -17,38 +17,38 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
     maxRotationSpeed = 10.f;
 };
 
-void Player::handleInput(const sf::Event& input){
+void Player::handleInput(sf::Event input){
     // Player movement: tank-style controls (rotate left/right, move forward/backward)
     
     // Rotate the player left (using the Left arrow key or A key)
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         if (getRotationSpeed() < maxRotationSpeed){
             setRotationSpeed(getRotationSpeed() + 0.5f);
         }
     }
 
     // Rotate the player right (using the Right arrow key or D key)
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         if (getRotationSpeed() < - maxRotationSpeed){
             setRotationSpeed(getRotationSpeed() -0.5f);
         }
     }
 
     // Move the player forward (using the Up arrow key or W key)
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    if (input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
         sf::Vector2f newVelocity = getVelocity() + direction;
-        float potentialMagnitude = sqrt(pow(newVelocity.x, 2) + pow(newVelocity.y, 2));
+        float potentialMagnitude = sqrtf(powf(newVelocity.x, 2) + powf(newVelocity.y, 2));
         if (potentialMagnitude < maxVelocity){
             setVelocity(newVelocity);
         }
     }
 
     // Move the player backward (using the Down arrow key or S key)
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || input.type == sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         sf::Vector2f direction(std::cos(getRotation() * M_PI / 180.f), std::sin(getRotation() * M_PI / 180.f));
         sf::Vector2f newVelocity = getVelocity() + direction;
-        float potentialMagnitude = sqrt(pow(newVelocity.x, 2) + pow(newVelocity.y, 2));
+        float potentialMagnitude = sqrtf(powf(newVelocity.x, 2) + powf(newVelocity.y, 2));
         if (potentialMagnitude < maxVelocity){
             setVelocity(newVelocity);
         }
