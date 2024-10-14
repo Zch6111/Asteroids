@@ -48,6 +48,9 @@ sf::Vector2f Object::getVelocity(){
 float Object::getRotation(){
     return rotation;
 }; //Returns the object’s current rotation angle.
+float Object::getRotationSpeed(){
+    return rotationSpeed;
+};
 bool Object::isActive(){
     return active;
 };// Returns whether the object is active.
