@@ -30,6 +30,9 @@ void Player::moveFoward(){
     if (potentialMagnitude < maxVelocity){
         setVelocity(newVelocity);
     } // If the magnitude of the potential velocity is less than maximum velocity, set the current velocity as the new velocity
+    else {
+        setVelocity((maxVelocity/potentialMagnitude)*newVelocity);
+    }
 };
 void Player::moveBackward(){
     float velocityMagnitude = sqrtf(powf(getVelocity().x, 2) + powf(getVelocity().y, 2)); // Get the magnitude of the velocity
