@@ -1,7 +1,8 @@
 #ifndef EASYENEMY_H
 #define EASYENEMY_H
+#include"Enemy.h"
 
-#include "Enemy.h"
+
 
 class EasyEnemy : public Enemy {
 public:
