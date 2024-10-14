@@ -25,11 +25,22 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             
-            help.handleInput(event);
+            // player movement
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                help.moveFoward();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+                help.moveBackward();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                help.turnLeft();
+            
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                help.turnRight();
         }
 
         // check for user input
-
+        
         // update game
         help.update(deltaTime);
         // clear the window with black color

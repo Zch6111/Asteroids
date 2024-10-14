@@ -17,7 +17,11 @@ private:
 
 public:
     Player();
-    void handleInput(sf::Event input);// Processes user input (input) for movement and actions.
+    // void handleInput(sf::Event input);// Processes user input (input) for movement and actions.
+    void moveFoward();
+    void moveBackward();
+    void turnLeft();
+    void turnRight();
     // void fireProjectile();// Creates and fires a new projectile if the fire cooldown allows.
     // void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
     // void respawn();// Resets the player’s position and state after losing a life.
