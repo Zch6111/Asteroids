@@ -22,12 +22,28 @@ Object::Object(sf::Shape* objectShape, sf::Vector2f originPosition, sf::Vector2f
 };
 
 void Object::update(float deltaTime){
-    if (active==0) {return;}
+    if (active==0) {return;} // stop function if the object is not active
 
-    position += velocity*deltaTime;
+    position += velocity*deltaTime; // times velocity by deltatime to account for any lag
     setPosition(position);
-    rotation += rotationSpeed*deltaTime;
+    rotation += rotationSpeed*deltaTime; // times rotationSpeed by deltatime to account for any lag
     setRotation(rotation);
+    
+    // Wrap the object around the screen
+    if (position.x > 800){
+        position.x -= 800;
+    }
+    if (position.x < 0){
+        position.x += 800;
+    }
+    if (position.y > 600){
+        position.y -= 600;
+    }
+    if (position.y < 0){
+        position.y += 600;
+    }
+
+    // apply position and rotation to object
     (*shape).setPosition(position);
     (*shape).setRotation(rotation);
 };// Updates the object’s state based on time elapsed (deltaTime).
@@ -41,22 +57,22 @@ void Object::onCollision(Object other){};//Handles the logic when a collision wi
 //Getters
 sf::Vector2f Object::getPosition(){
     return position;
-};// Returns the object’s current position.
+}; // Returns the object’s current position.
 sf::Vector2f Object::getVelocity(){
     return velocity;
-};// Returns the object’s current velocity.
+}; // Returns the object’s current velocity.
 float Object::getRotation(){
     return rotation;
-}; //Returns the object’s current rotation angle.
+}; // Returns the object’s current rotation angle.
 float Object::getRotationSpeed(){
     return rotationSpeed;
-};
+}; // Returns the object’s current rotation speed.
 bool Object::isActive(){
     return active;
-};// Returns whether the object is active.
+}; // Returns whether the object is active.
 sf::Shape* Object::getShape(){
     return shape;
-};
+};// Returns object's shape pointer.
 
 
 //Setters
@@ -71,7 +87,7 @@ void Object::setRotation(float newRotation){
 };// Sets the object’s rotation to newRotation.
 void Object::setRotationSpeed(float newRotationSpeed){
     rotationSpeed=newRotationSpeed;
-};
+};// Sets the object’s rotationSpeed to newRotationSpeed.
 void Object::setActive(bool isActive){
     active=isActive;
 };// Sets the object’s active status.
