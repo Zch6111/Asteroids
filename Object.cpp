@@ -17,7 +17,7 @@ Object::Object(sf::Shape* objectShape, sf::Vector2f originPosition, sf::Vector2f
     setPosition(originPosition);
     setVelocity(originVelocity);
     setRotation(originRotation);
-    setRotation(originRotationSpeed);
+    setRotationSpeed(originRotationSpeed);
     active = 1;
 };
 
