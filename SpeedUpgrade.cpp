@@ -1,4 +1,6 @@
 #include "SpeedUpgrade.h"
+#include"Player.h"
+#include"Object.h"
 
 // Constructor creates a green square for SpeedUpgrade
 SpeedUpgrade::SpeedUpgrade(float increaseAmount)

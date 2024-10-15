@@ -9,6 +9,7 @@ int main() {
     // initial postition direction and speed
     sf::Vector2f startPosition(400.f, 300.f);
     sf::Vector2f direction(1.f, 0.f);
+    
     float speed = 200.f;
 
     //  Projectile example

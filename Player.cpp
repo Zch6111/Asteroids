@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
+#include"Projectile.h"
 
 #include"Object.h"
 #include"Player.h"
@@ -47,7 +48,28 @@ void Player::turnRight(){
     setRotation(getRotation() + playerRotationSpeed); // turn the player right by the playerRotationSpeed
 };
 
+void Player::fireProjectile(std::vector<std::shared_ptr<Projectile>>& projectiles) {
+    // check cooldown
+    if (fireCooldown <= 0) {
+        // circle projectile
+        sf::CircleShape* projectileShape = new sf::CircleShape(5.f);  // diameter=5
+        projectileShape->setFillColor(sf::Color::Yellow);              // color in yellow
 
+        // calculaterotation
+        sf::Vector2f direction(std::sin(getRotation() * M_PI / 180.f), -std::cos(getRotation() * M_PI / 180.f));
+
+        //create projectile
+        std::shared_ptr<Projectile> newProjectile = std::make_shared<Projectile>(
+            projectileShape, 300.f, getPosition(), direction, this  // this means it is from player
+        );
+
+        // store projectile
+        projectiles.push_back(newProjectile);
+
+        // reset fire cooldown
+        fireCooldown = fireRate;
+    }
+}
 //Getters:
 float Player::getMaxVelocity(){
     return maxVelocity;

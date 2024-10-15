@@ -24,7 +24,7 @@ public:
     void moveBackward();
     void turnLeft();
     void turnRight();
-     void fireProjectile();// Creates and fires a new projectile if the fire cooldown allows.
+     void fireProjectile(std::vector<std::shared_ptr<Projectile>>& projectiles);// Creates and fires a new projectile if the fire cooldown allows.
     void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
     void respawn();// Resets the player’s position and state after losing a life.
 

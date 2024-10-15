@@ -16,8 +16,7 @@ public:
     Object(sf::Shape* objectShape, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation, float originRotationSpeed);
     void update(float deltaTime);// Updates the object’s state based on time elapsed (deltaTime).
     void render();//Draws the object on the screen. IT IS ON MAIN LOOP
-    bool checkCollision(Object other);// Checks if this object is colliding with another object (other).
-    void onCollision(Object other);//Handles the logic when a collision with another object occurs.
+    virtual void onCollision(Object& other) = 0;
 //Getters
     sf::Vector2f getPosition();// Returns the object’s current position.
     sf::Vector2f getVelocity();// Returns the object’s current velocity.
