@@ -30,7 +30,11 @@ void HighScores::loadFromFile() {
 }
 
 // Adds a new high score entry and saves it to the file
-void HighScores::addScore(const std::string& name, int score) {
+void HighScores::addScore(int score) {
+  // print attempts
+  std::string name = "Attempt" + std::to_string(attemptCounter);
+  // Add the attempts
+  attemptCounter++;
   // Add the new score to the scores list
   scores.push_back(ScoreEntry{name, score});
 

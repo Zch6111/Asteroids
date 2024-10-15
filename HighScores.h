@@ -17,7 +17,7 @@ class HighScores {
   std::vector<ScoreEntry> scores;  // Vector to hold high scores
   sf::Font font;                   // Font for rendering text
   std::string filename;            // File to store high scores
-
+  int attemptCounter = 1;
   // Loads high scores from the file
   void loadFromFile();
 
@@ -26,7 +26,7 @@ class HighScores {
   HighScores(const std::string& file);
 
   // Adds a new score and writes it to the file
-  void addScore(const std::string& name, int score);
+  void addScore(int score);
 
   // Draws the high scores on the window
   void draw(sf::RenderWindow& window);
