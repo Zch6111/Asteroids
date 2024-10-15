@@ -1,12 +1,26 @@
-# Replace this with the path you get from `brew info sfml`
-# g++ main.cpp -I/opt/homebrew/Cellar/sfml/2.6.1/include -L/opt/homebrew/Cellar/sfml/2.6.1/lib -lsfml-graphics -lsfml-window -lsfml-system
-SFML_PATH = /opt/homebrew/Cellar/sfml/2.6.1
+# Makefile
 
-# Replace "src" with the name of the folder where all your cpp code is
-cppFileNames := $(shell find ./src -type f -name "*.cpp")
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall -I/usr/local/include -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-all: compile
+# Object files
+OBJ = main.o Object.o Player.o Upgrade.o LivesUpgrade.o FireSpeedUpgrade.o SpeedUpgrade.o Projectile.o Enemy.o UpgradeTest.o
 
-compile:	
-	mkdir -p bin
-	g++ $(cppFileNames) -I$(SFML_PATH)/include -o bin/app -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network
+# Target executable
+TARGET = game
+
+# Rule for compiling the target
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET)
+
+# Rule for compiling test executable
+test: UpgradeTest.o Object.o Player.o LivesUpgrade.o FireSpeedUpgrade.o SpeedUpgrade.o
+	$(CXX) UpgradeTest.o Object.o Player.o LivesUpgrade.o FireSpeedUpgrade.o SpeedUpgrade.o -o UpgradeTest
+
+# Pattern rule for compiling .cpp files into .o files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean up object files and executable
+clean:
+	rm -f $(OBJ) $(TARGET) UpgradeTest
