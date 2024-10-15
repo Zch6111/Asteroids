@@ -15,7 +15,7 @@ private:
     float playerRotationSpeed;              // The speed at which the player can rotate.
     float fireRate;                      // The rate at which the player can fire projectiles.
      bool shieldActive;                   // Indicates whether the player’s shield is active.
-    std::vector<UpgradeType> upgrades;   // A list of upgrades the player has collected.
+    
     float fireCooldown;                  //Time remaining until the player can fire again.
 
 public:
@@ -27,7 +27,7 @@ public:
      void fireProjectile(std::vector<std::shared_ptr<Projectile>>& projectiles);// Creates and fires a new projectile if the fire cooldown allows.
     void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
     void respawn();// Resets the player’s position and state after losing a life.
-
+    void Player::onCollision(Object& other) override;
 //Getters:
      int getLives();                                      // Returns the number of lives remaining.
      int getScore();                                      // Returns the current score.

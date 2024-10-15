@@ -36,6 +36,12 @@ void Projectile::checkOutOfBounds() {
     }
 }
 
+void Projectile::onCollision(Object& other) {
+    // The projectile disappears when it collides with any object
+    this->setActive(false);  // Deactivate the projectile
+}
+
+
 // Getters
 float Projectile::getSpeed() const {
     return speed;

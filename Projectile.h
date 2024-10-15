@@ -18,6 +18,8 @@ public:
     // Deactivates the projectile if it leaves the screen bounds
     void checkOutOfBounds();
 
+    void Projectile::onCollision(Object& other) override;
+
     // Getters
     float getSpeed() const;
     sf::Vector2f getDirection() const;

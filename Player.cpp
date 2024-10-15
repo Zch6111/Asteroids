@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include"Projectile.h"
+#include"Enemy.h"
 
 #include"Object.h"
 #include"Player.h"
@@ -69,7 +70,56 @@ void Player::fireProjectile(std::vector<std::shared_ptr<Projectile>>& projectile
         // reset fire cooldown
         fireCooldown = fireRate;
     }
+};
+
+void Player::applyUpgrade(const Upgrade& upgrade) {
+    switch (upgrade.getType()) {
+        case UpgradeType::SpeedUpgrade:
+            setMaxVelocity(getMaxVelocity() + 5.f);  // Increase max velocity
+            std::cout << "Speed Upgrade Applied! New Max Velocity: " << getMaxVelocity() << std::endl;
+            break;
+
+        case UpgradeType::FireRateUpgrade:
+            setFireRate(getFireRate() - 0.1f);  // Increase fire rate
+            std::cout << "Fire Rate Upgrade Applied! New Fire Rate: " << getFireRate() << std::endl;
+            break;
+
+        case UpgradeType::LivesUpgrade:
+            setLives(getLives() + 1);  // Increase lives
+            std::cout << "Lives Upgrade Applied! New Lives: " << getLives() << std::endl;
+            break;
+
+        default:
+            break;  // Handle any unexpected upgrades
+    }
 }
+
+void Player::onCollision(Object& other) {
+    // If the player collides with an Upgrade
+    if (Upgrade* upgrade = dynamic_cast<Upgrade*>(&other)) {
+        upgrade->applyToPlayer(*this);  // Apply the upgrade effect to the player
+        other.setActive(false);  // Deactivate the upgrade after being picked up
+    }
+    // If the player collides with a Projectile
+    else if (Projectile* projectile = dynamic_cast<Projectile*>(&other)) {
+        // Check if the projectile was fired by an enemy (to avoid friendly fire)
+        if (projectile->getSource() != this) {
+            this->setLives(this->getLives() - 1);  // Decrease player's lives
+            if (this->getLives() <= 0) {
+                this->setActive(false);  // Set player to inactive if lives reach zero (player dies)
+            }
+            projectile->setActive(false);  // Deactivate the projectile after it hits the player
+        }
+    }
+    // If the player collides with an Enemy
+    else if (dynamic_cast<Enemy*>(&other)) {
+        this->setLives(this->getLives() - 1);  // Decrease player's lives
+        if (this->getLives() <= 0) {
+            this->setActive(false);  // Set player to inactive if lives reach zero (player dies)
+        }
+    }
+}
+
 //Getters:
 float Player::getMaxVelocity(){
     return maxVelocity;

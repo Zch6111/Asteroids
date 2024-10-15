@@ -1,3 +1,4 @@
+// SpeedUpgrade.h
 #ifndef SPEEDUPGRADE_H
 #define SPEEDUPGRADE_H
 
@@ -11,8 +12,8 @@ public:
     // Constructor for SpeedUpgrade
     SpeedUpgrade(float increaseAmount);
 
-    // Applies the speed upgrade to the player
+    // Applies the speed increase to the player
     void applyToPlayer(Player& player) override;
 };
 
-#endif
+#endif // SPEEDUPGRADE_H
