@@ -19,7 +19,7 @@ int main() {
     std::cout << "Initial Active Status: " << projectile.isActive() << "\n";
 
     // update
-    float deltaTime = 1.0f; // 1秒
+    float deltaTime = 1.0f; // 1 second
     projectile.update(deltaTime);
 
     // after status
