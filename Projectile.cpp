@@ -28,8 +28,8 @@ void Projectile::checkOutOfBounds() {
     sf::Vector2f pos = getPosition();
 
     // Assuming screen bounds are (0, 0) to (windowWidth, windowHeight)
-    const float windowWidth = 800.f;  // eg.
-    const float windowHeight = 600.f;  // eg
+    const float windowWidth = 800.f;  // 
+    const float windowHeight = 600.f;  // 
 
     // Check if the projectile is outside the screen bounds
     if (pos.x < 0 || pos.x > windowWidth || pos.y < 0 || pos.y > windowHeight) {
