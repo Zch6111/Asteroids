@@ -62,3 +62,68 @@ void Menu::moveDown() {
 
 // Returns the index of the currently selected menu item
 int Menu::getSelectedItem() { return selectedItem; }
+
+// run function which can run the menu
+void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
+  GameState state = MAIN_MENU;
+  while (window.isOpen()) {
+    sf::Event event;
+
+    if (state == MAIN_MENU) {
+      while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+          window.close();
+        }
+        if (event.type == sf::Event::KeyPressed) {
+          if (event.key.code == sf::Keyboard::Up) {
+            moveUp();
+          }
+          if (event.key.code == sf::Keyboard::Down) {
+            moveDown();
+          }
+          if (event.key.code == sf::Keyboard::Return) {
+            int selectedItem = getSelectedItem();
+            if (selectedItem == 0) {
+              std::cout << "Starting Game..." << std::endl;
+
+            } else if (selectedItem == 1) {
+              std::cout << "Info..." << std::endl;
+            } else if (selectedItem == 2) {
+              std::cout << "Settings..." << std::endl;
+            } else if (selectedItem == 3) {
+              state = HIGH_SCORES;
+            } else if (selectedItem == 4) {
+              state = EXIT;
+            }
+          }
+        }
+      }
+      window.clear(sf::Color::Black);
+      draw(window);
+      window.display();
+
+    } else if (state == HIGH_SCORES) {
+      // logic of high scores
+      while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+          window.close();
+        }
+        if (event.type == sf::Event::KeyPressed &&
+            event.key.code == sf::Keyboard::C) {
+          highScores.clear();
+        }
+        if (event.type == sf::Event::KeyPressed &&
+            event.key.code == sf::Keyboard::Escape) {
+          state = MAIN_MENU;
+        }
+      }
+      // draw the high scores
+      window.clear(sf::Color::Black);
+      highScores.draw(window);
+      window.display();
+
+    } else if (state == EXIT) {
+      window.close();
+    }
+  }
+}

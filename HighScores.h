@@ -30,4 +30,7 @@ class HighScores {
 
   // Draws the high scores on the window
   void draw(sf::RenderWindow& window);
+
+  // Clear the high score
+  void clear();
 };

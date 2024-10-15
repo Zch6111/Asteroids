@@ -4,12 +4,14 @@
 #include <string>
 #include <vector>
 
+#include "HighScores.h"
+enum GameState { MAIN_MENU, HIGH_SCORES, EXIT };
+
 class Menu {
  private:
   sf::Font font;                    // Font used for rendering menu text
-  std::vector<sf::Text> menuItems;  // List of menu items (Start, Info, etc.)
+  std::vector<sf::Text> menuItems;  // List of menu items
   int selectedItem;                 // Index of the currently selected item
-
  public:
   // Constructor: Initializes the menu with given window width and height
   Menu(float width, float height);
@@ -25,4 +27,7 @@ class Menu {
 
   // Returns the index of the currently selected menu item
   int getSelectedItem();
+
+  // Run the menu
+  void run(sf::RenderWindow& window, HighScores& highScores);
 };

@@ -83,3 +83,4 @@ void HighScores::draw(sf::RenderWindow& window) {
     window.draw(entryText);
   }
 }
+void HighScores::clear() { scores.clear(); }
