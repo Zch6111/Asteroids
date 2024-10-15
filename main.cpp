@@ -2,6 +2,9 @@
 
 #include "HighScores.h"
 #include "Menu.h"
+#include "Object.h"
+#include "Player.h"
+
 
 int main() {
   // Create an SFML window with 800x600 resolution

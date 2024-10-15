@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "HighScores.h"
-enum GameState { MAIN_MENU, HIGH_SCORES, EXIT };
+enum GameState { MAIN_MENU, HIGH_SCORES, EXIT, GAME };
 
 class Menu {
  private:
