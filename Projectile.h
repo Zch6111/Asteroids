@@ -1,6 +1,5 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
-#include"Update.h"
 #include "Object.h"
 #include <SFML/Graphics.hpp>
 

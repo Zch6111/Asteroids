@@ -1,5 +1,4 @@
 #include "Projectile.h"
-#include"Update.h"
 #include "Object.h"
 #include <SFML/Graphics.hpp>
 // Constructor for initializing the projectile
