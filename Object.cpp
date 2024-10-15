@@ -21,6 +21,10 @@ Object::Object(sf::Shape* objectShape, sf::Vector2f originPosition, sf::Vector2f
     active = 1;
 };
 
+Object::~Object(){
+    delete shape;
+};
+
 void Object::update(float deltaTime){
     if (active==0) {return;} // stop function if the object is not active
 
