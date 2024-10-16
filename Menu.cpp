@@ -68,8 +68,11 @@ int Menu::getSelectedItem() { return selectedItem; }
 // run function which can run the menu
 void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
   GameState state = MAIN_MENU;
+  Player help;
+  sf::Clock clock;
   while (window.isOpen()) {
     sf::Event event;
+    
     
     if (state == MAIN_MENU) {
       while (window.pollEvent(event)) {
@@ -87,8 +90,6 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
             int selectedItem = getSelectedItem();
             if (selectedItem == 0) {
               state = GAME;
-              Player help;
-              sf::Clock clock;
             } else if (selectedItem == 1) {
               std::cout << "Info..." << std::endl;
             } else if (selectedItem == 2) {
@@ -138,6 +139,10 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
             if (event.type == sf::Event::Closed)
                 window.close();
             
+            // player movement
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                state = MAIN_MENU;
+
             // player movement
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
                 help.moveFoward();
