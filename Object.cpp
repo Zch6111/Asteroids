@@ -32,7 +32,7 @@ void Object::update(float deltaTime){
     (*shape).setRotation(rotation);
 };// Updates the object’s state based on time elapsed (deltaTime).
 
-void virtual  Object::onCollision(Object other){};//Handles the logic when a collision with another object occurs.
+
 
 
 //Getters
