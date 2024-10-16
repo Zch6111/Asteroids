@@ -20,8 +20,16 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
     acceleration = 0.1f;
     deceleration = 0.8f;
     playerRotationSpeed = 4.f;
+    fireCooldown = 0.f;
+    fireSpeed = 50.f;
 };
 
+void Player::update(float deltaTime){
+    Object::update(deltaTime);
+    if (fireCooldown>0){
+        fireCooldown -= deltaTime;
+    }
+};
 
 void Player::moveFoward(){
     sf::Vector2f direction(std::sin(getRotation() * M_PI / 180.f), -std::cos(getRotation() * M_PI / 180.f)); // Get the direction of the player as a vector of length one
@@ -45,6 +53,14 @@ void Player::turnLeft(){
 };
 void Player::turnRight(){
     setRotation(getRotation() + playerRotationSpeed); // turn the player right by the playerRotationSpeed
+};
+void Player::fire(){
+    if (fireCooldown > 0) {return;}
+
+    // shoot projectile
+    std::cout << "pew" << std::endl;
+
+    fireCooldown = fireSpeed;
 };
 
 //Getters:

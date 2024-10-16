@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "HighScores.h"
+#include "Player.h"
 enum GameState { MAIN_MENU, HIGH_SCORES, EXIT, GAME };
 
 class Menu {
@@ -29,5 +30,5 @@ class Menu {
   int getSelectedItem();
 
   // Run the menu
-  void run(sf::RenderWindow& window, HighScores& highScores);
+  void run(sf::RenderWindow& window, HighScores& highScores, Player& player);
 };

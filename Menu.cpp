@@ -66,9 +66,8 @@ void Menu::moveDown() {
 int Menu::getSelectedItem() { return selectedItem; }
 
 // run function which can run the menu
-void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
+void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player) {
   GameState state = MAIN_MENU;
-  Player help;
   sf::Clock clock;
   while (window.isOpen()) {
     sf::Event event;
@@ -145,28 +144,31 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
 
             // player movement
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-                help.moveFoward();
+                player.moveFoward();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-                help.moveBackward();
+                player.moveBackward();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                help.turnLeft();
+                player.turnLeft();
             
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                help.turnRight();
+                player.turnRight();
+            
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                player.fire();
         }
 
         // check for user input
         
         // update game
-        help.update(deltaTime);
+        player.update(deltaTime);
         // clear the window with black color
         window.clear(sf::Color::Black);
 
         // draw everything here...
         // window.draw(...);
-        window.draw(*(help.getShape()));
+        window.draw(*(player.getShape()));
         // end the current frame
         window.display();
         

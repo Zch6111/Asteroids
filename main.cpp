@@ -16,8 +16,11 @@ int main() {
   // Create a HighScores object with a file to store the scores
   HighScores highScores("high_scores.txt");
 
+  // Create Player
+  Player player;
+
   // Start with the main menu
-  menu.run(window, highScores);
+  menu.run(window, highScores, player);
 
   return 0;
 }
