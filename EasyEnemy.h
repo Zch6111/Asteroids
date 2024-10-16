@@ -4,9 +4,10 @@
 #include "Enemy.h"
 
 class EasyEnemy : public Enemy {
-public:
-    EasyEnemy();
-    void updateAI(float deltaTime, std::vector<Projectile*>& projectiles) override;
+ public:
+  EasyEnemy();
+  void updateAI(float deltaTime,
+                std::vector<Projectile*>& projectiles) override;
 };
 
 #endif
