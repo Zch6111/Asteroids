@@ -12,7 +12,8 @@ private:
     float acceleration;                     // The player's acceleration
     float deceleration;                     // The player's deceleration
     float playerRotationSpeed;              // The speed at which the player can rotate.
-    // float fireRate;                      // The rate at which the player can fire projectiles.
+    float fireSpeed;                        // The rate at which the player can fire projectiles.
+    float fireCooldown;                     // The length of time left until player can shoot again
     // bool shieldActive;                   // Indicates whether the player’s shield is active.
     // std::vector<UpgradeType> upgrades;   // A list of upgrades the player has collected.
     // float fireCooldown;                  //Time remaining until the player can fire again.
