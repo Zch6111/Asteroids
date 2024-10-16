@@ -1,0 +1,18 @@
+#include <SFML/Graphics.hpp>
+#include <cmath>
+#include "Projectile.h"
+#include "Object.h"
+
+Projectile::Projectile(float speed, sf::Vector2f playerPosition, sf::Vector2f playerVelocity, float playerRotation): Object(new sf::CircleShape(2.5f, 4), playerPosition, playerVelocity, playerRotation, 0.f){
+    sf::Shape* shape = getShape();
+    
+    // sf::Vector2f direction(std::sin(playerRotation * M_PI / 180.f), -std::cos(playerRotation * M_PI / 180.f)); // Get the direction of the player as a vector of length one
+
+    // setVelocity(getVelocity() + speed*direction);
+
+    shape->setOrigin(playerPosition);
+    (*shape).setFillColor(sf::Color(255, 255, 0));
+
+    shape->setOutlineThickness(1.f);
+    shape->setOutlineColor(sf::Color(140, 140, 140));
+};

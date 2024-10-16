@@ -2,7 +2,9 @@
 #define PLAYER_H
 
 #include <SFML/Graphics.hpp>
-#include"Object.h"
+#include <vector>
+#include "Object.h"
+#include "Projectile.h"
 
 class Player: public Object{
 private:
@@ -12,20 +14,21 @@ private:
     float acceleration;                     // The player's acceleration
     float deceleration;                     // The player's deceleration
     float playerRotationSpeed;              // The speed at which the player can rotate.
-    float fireSpeed;                        // The rate at which the player can fire projectiles.
-    float fireCooldown;                     // The length of time left until player can shoot again
+    float fireSpeed;                        // The length of time left until player can shoot again.
+    float fireCooldown;                     // Time remaining until the player can fire again.
+    float projectileSpeed;                  // Speed of projectile
+    std::vector<Projectile*> projectiles;   // List of projectiles
     // bool shieldActive;                   // Indicates whether the player’s shield is active.
     // std::vector<UpgradeType> upgrades;   // A list of upgrades the player has collected.
-    // float fireCooldown;                  //Time remaining until the player can fire again.
 
 public:
-    Player();
-    void update(float deltaTime);
-    void moveFoward();
-    void moveBackward();
-    void turnLeft();
-    void turnRight();
-    void fire();
+    Player();                               // Player Constructor
+    void update(float deltaTime);           // Class object update as well as manages projectiles
+    void moveFoward();                      // Moves player foward
+    void moveBackward();                    // Moves player Backward
+    void turnLeft();                        // Turns player Left
+    void turnRight();                       // Turns player Right
+    void fire();                            // Fires Projectile
     // void fireProjectile();// Creates and fires a new projectile if the fire cooldown allows.
     // void applyUpgrade(const Upgrade& upgrade);// Applies an upgrade’s effects to the player.
     // void respawn();// Resets the player’s position and state after losing a life.
@@ -34,10 +37,11 @@ public:
     // int getLives();                                      // Returns the number of lives remaining.
     // int getScore();                                      // Returns the current score.
     // bool isShieldActive();                               // Returns whether the shield is active.
-    float getMaxVelocity();                                 // Returns the player’s movement speed.
-    float getAcceleration();                                // Returns the player’s movement speed.
-    float getDeceleration();                                // Returns the player’s movement speed.
+    float getMaxVelocity();                                 // Returns the player’s max movement speed.
+    float getAcceleration();                                // Returns the player’s acceleration.
+    float getDeceleration();                                // Returns the player’s deceleration.
     float getPlayerRotationSpeed();                         // Returns the player’s rotation speed.
+    std::vector<Projectile*>* getProjectiles();             // Returns the list of projectiles.
     // float getFireRate();// Returns the player’s fire rate.
 
 //Setters:

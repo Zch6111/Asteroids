@@ -1,6 +1,8 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include "Object.h"
 
 class Object{
 private:

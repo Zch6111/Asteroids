@@ -22,13 +22,20 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
     playerRotationSpeed = 4.f;
     fireCooldown = 0.f;
     fireSpeed = 50.f;
+    projectileSpeed = 10.f;
 };
 
 void Player::update(float deltaTime){
-    Object::update(deltaTime);
+    Object::update(deltaTime); // Call object update funtion
+
     if (fireCooldown>0){
         fireCooldown -= deltaTime;
+    } // if the player has not cooled down yet, decreases it's firecooldown timer
+
+    for (int i=0; i < projectiles.size(); i++){
+        projectiles[i]->update(deltaTime);
     }
+
 };
 
 void Player::moveFoward(){
@@ -59,6 +66,9 @@ void Player::fire(){
 
     // shoot projectile
     std::cout << "pew" << std::endl;
+    Projectile* newProjectile;
+    newProjectile = new Projectile(projectileSpeed, getPosition(), getVelocity(), getRotation());
+    projectiles.push_back(newProjectile);
 
     fireCooldown = fireSpeed;
 };
@@ -75,7 +85,9 @@ float Player::getDeceleration(){
 };//: Returns the player’s movement speed.
 float Player::getPlayerRotationSpeed(){
     return playerRotationSpeed;
-
+};//: Returns the player’s rotation speed.
+std::vector<Projectile*>* Player::getProjectiles(){
+    return &projectiles;
 };//: Returns the player’s rotation speed.
 
 //Setters:

@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Object.h"
 #include "Player.h"
+#include "Projectile.h"
 
 Menu::Menu(float width, float height) {
   // Load the font for rendering the menu text
@@ -169,6 +170,9 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
         // draw everything here...
         // window.draw(...);
         window.draw(*(player.getShape()));
+        for (int i=0; i < player.getProjectiles()->size(); i++){
+            window.draw(*((*(player.getProjectiles()))[i]->getShape()));
+        }
         // end the current frame
         window.display();
         
