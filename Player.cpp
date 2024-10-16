@@ -1,77 +1,45 @@
-#include <SFML/Graphics.hpp>
+#include "Player.h"
 #include <cmath>
-#include <iostream>
 
-#include"Object.h"
-#include"Player.h"
+Player::Player()
+    : Object(new sf::CircleShape(20.f, 3)), lives(3), maxVelocity(200.f), acceleration(100.f), deceleration(0.98f), rotationSpeed(180.f) {
+    shape->setOrigin(20.f, 20.f);
+    shape->setFillColor(sf::Color::White);
+    position = sf::Vector2f(400.f, 300.f);
+    shape->setPosition(position);
+}
 
-const sf::Vector2f centreOfScreen(400.f, 300.f);
-
-Player::Player(): Object(new sf::CircleShape(20, 3)){
-    sf::Shape* shape = getShape(); // get shape pointer
-    shape->setOrigin(20, 20); // set the point of rotation to the centre of the shape
-    setPosition(centreOfScreen); // place the ship in the centre of the screen
-    // colour the ship
-    (*shape).setFillColor(sf::Color(50, 50, 50));
-    shape->setOutlineThickness(1.f);
-    shape->setOutlineColor(sf::Color(255, 255, 255));
-    // initialise variables
-    maxVelocity = 10.f;
-    acceleration = 0.1f;
-    deceleration = 0.8f;
-    playerRotationSpeed = 4.f;
-};
-
-
-void Player::moveFoward(){
-    sf::Vector2f direction(std::sin(getRotation() * M_PI / 180.f), -std::cos(getRotation() * M_PI / 180.f)); // Get the direction of the player as a vector of length one
-    sf::Vector2f newVelocity = getVelocity() + acceleration*direction; // Add it to the current velocity to get the potential velocity
-    float potentialMagnitude = sqrtf(powf(newVelocity.x, 2) + powf(newVelocity.y, 2)); // Get the magnitude of the new velocity
-    if (potentialMagnitude < maxVelocity){
-        setVelocity(newVelocity);
-    } // If the magnitude of the potential velocity is less than maximum velocity, set the current velocity as the new velocity
-    else {
-        setVelocity((maxVelocity/potentialMagnitude)*newVelocity);
+void Player::moveForward(float deltaTime) {
+    float angle = rotation * 3.14159265f / 180.f;
+    sf::Vector2f dir(std::sin(angle), -std::cos(angle));
+    velocity += dir * acceleration * deltaTime;
+    if (std::hypot(velocity.x, velocity.y) > maxVelocity) {
+        velocity = maxVelocity * dir;
     }
-};
-void Player::moveBackward(){
-    float velocityMagnitude = sqrtf(powf(getVelocity().x, 2) + powf(getVelocity().y, 2)); // Get the magnitude of the velocity
-    if (velocityMagnitude > 0.f){
-        setVelocity(deceleration*getVelocity());
-    } // If the magnitude of the current velocity is greater than zero, decrease the velocity by 80%
-};
-void Player::turnLeft(){
-    setRotation(getRotation() - playerRotationSpeed); // turn the player left by the playerRotationSpeed 
-};
-void Player::turnRight(){
-    setRotation(getRotation() + playerRotationSpeed); // turn the player right by the playerRotationSpeed
-};
+}
 
-//Getters:
-float Player::getMaxVelocity(){
-    return maxVelocity;
-};//: Returns the player’s movement speed.
-float Player::getAcceleration(){
-    return acceleration;
-};//: Returns the player’s movement speed.
-float Player::getDeceleration(){
-    return deceleration;
-};//: Returns the player’s movement speed.
-float Player::getPlayerRotationSpeed(){
-    return playerRotationSpeed;
+void Player::moveBackward(float deltaTime) {
+    velocity *= deceleration;
+}
 
-};//: Returns the player’s rotation speed.
+void Player::turnLeft(float deltaTime) {
+    rotation -= rotationSpeed * deltaTime;
+}
 
-//Setters:
-void Player::setMaxVelocity(float maxVelocity){
-    this->maxVelocity = maxVelocity;
-};//: Sets the movement speed to newSpeed.
-void Player::setAcceleration(float acceleration){
-    this->acceleration = acceleration;
-};//: Sets the movement speed to newSpeed.
-void Player::setDeceleration(float deceleration){
-    this->deceleration = deceleration;
-};//: Sets the movement speed to newSpeed.
-void Player::setPlayerRotationSpeed(float playerRotationSpeed){
-    this->playerRotationSpeed = playerRotationSpeed;
-};//: Sets the rotation speed to newRotationSpeed.
+void Player::turnRight(float deltaTime) {
+    rotation += rotationSpeed * deltaTime;
+}
+
+// Getters
+int Player::getLives() const { return lives; }
+float Player::getMaxVelocity() const { return maxVelocity; }
+float Player::getAcceleration() const { return acceleration; }
+float Player::getDeceleration() const { return deceleration; }
+float Player::getRotationSpeed() const { return rotationSpeed; }
+
+// Setters
+void Player::setLives(int newLives) { lives = newLives; }
+void Player::setMaxVelocity(float newMaxVelocity) { maxVelocity = newMaxVelocity; }
+void Player::setAcceleration(float newAcceleration) { acceleration = newAcceleration; }
+void Player::setDeceleration(float newDeceleration) { deceleration = newDeceleration; }
+void Player::setRotationSpeed(float newRotationSpeed) { rotationSpeed = newRotationSpeed; }

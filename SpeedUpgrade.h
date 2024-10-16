@@ -5,7 +5,7 @@
 
 class SpeedUpgrade : public Upgrade {
 public:
-    SpeedUpgrade(sf::Vector2f position); // Constructor with position
+    SpeedUpgrade(sf::Vector2f position);
     void applyToPlayer(Player& player) override;
 };
 

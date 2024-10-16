@@ -6,10 +6,10 @@
 class Projectile : public Object {
 public:
     Projectile(sf::Shape* projectileShape, sf::Vector2f originPosition, sf::Vector2f originVelocity);
-    void update(float deltaTime) ;
-   // void onCollision(Object& other) override;
 
-   static sf::Shape* cloneShape(const sf::Shape* shape);
+    void update(float deltaTime) ;
+
+    static sf::Shape* cloneShape(const sf::Shape* shape);
 };
 
 #endif

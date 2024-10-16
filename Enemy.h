@@ -2,6 +2,8 @@
 #define ENEMY_H
 
 #include "Object.h"
+#include "Projectile.h"
+#include <vector>
 
 class Enemy : public Object {
 protected:
@@ -14,24 +16,13 @@ protected:
 
 public:
     Enemy(sf::Shape* enemyShape);
-    ~Enemy();
+    virtual ~Enemy();
 
-    virtual void updateAI(float deltaTime) = 0; // Pure virtual function for AI behavior
-    void fireProjectile(std::vector<Object*>& projectiles); // Fires a projectile
-    void update(float deltaTime) ;
-    //void onCollision(Object& other) override;
+    virtual void updateAI(float deltaTime, std::vector<Projectile*>& projectiles) = 0;
+    void fireProjectile(std::vector<Projectile*>& projectiles);
+    void update(float deltaTime, std::vector<Projectile*>& projectiles);
 
-    // Getters
-    int getLives();
-    float getSpeed();
-    float getFireRate();
-    sf::Vector2f getDirection();
-
-    // Setters
-    void setLives(int newLives);
-    void setSpeed(float newSpeed);
-    void setFireRate(float newFireRate);
-    void setDirection(sf::Vector2f newDirection);
+    // Getters and Setters...
 };
 
 #endif
