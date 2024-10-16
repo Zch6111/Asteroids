@@ -70,7 +70,7 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
   GameState state = MAIN_MENU;
   while (window.isOpen()) {
     sf::Event event;
-
+    
     if (state == MAIN_MENU) {
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
@@ -87,6 +87,8 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
             int selectedItem = getSelectedItem();
             if (selectedItem == 0) {
               state = GAME;
+              Player help;
+              sf::Clock clock;
             } else if (selectedItem == 1) {
               std::cout << "Info..." << std::endl;
             } else if (selectedItem == 2) {
@@ -126,49 +128,43 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
     } else if (state == EXIT) {
       window.close();
     } else if (state == GAME){
-        Player help;
-
-        // run the program as long as the window is open
-        sf::Clock clock;
-        while (window.isOpen())
+        sf::Time elapsed = clock.restart();
+        float deltaTime = 60 * elapsed.asSeconds();
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-            sf::Time elapsed = clock.restart();
-            float deltaTime = 60 * elapsed.asSeconds();
-            // check all the window's events that were triggered since the last iteration of the loop
-            sf::Event event;
-            while (window.pollEvent(event))
-            {
-                // "close requested" event: we close the window
-                if (event.type == sf::Event::Closed)
-                    window.close();
-                
-                // player movement
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-                    help.moveFoward();
-
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-                    help.moveBackward();
-
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                    help.turnLeft();
-                
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                    help.turnRight();
-            }
-
-            // check for user input
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                window.close();
             
-            // update game
-            help.update(deltaTime);
-            // clear the window with black color
-            window.clear(sf::Color::Black);
+            // player movement
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+                help.moveFoward();
 
-            // draw everything here...
-            // window.draw(...);
-            window.draw(*(help.getShape()));
-            // end the current frame
-            window.display();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+                help.moveBackward();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+                help.turnLeft();
+            
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+                help.turnRight();
         }
+
+        // check for user input
+        
+        // update game
+        help.update(deltaTime);
+        // clear the window with black color
+        window.clear(sf::Color::Black);
+
+        // draw everything here...
+        // window.draw(...);
+        window.draw(*(help.getShape()));
+        // end the current frame
+        window.display();
+        
     }
   }
 }
