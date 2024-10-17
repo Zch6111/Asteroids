@@ -42,7 +42,8 @@ public:
     float getDeceleration();                                // Returns the player’s deceleration.
     float getPlayerRotationSpeed();                         // Returns the player’s rotation speed.
     std::vector<Projectile*>* getProjectiles();             // Returns the list of projectiles.
-    // float getFireRate();// Returns the player’s fire rate.
+     float getFireCooldown() const;// New method to get the current fire cooldown
+     // float getFireRate();// Returns the player’s fire rate.
 
 //Setters:
     // void setLives(int newLives);//: Sets the number of lives to newLives.
@@ -52,7 +53,12 @@ public:
     void setAcceleration(float acceleration);               // Sets the movement speed to newSpeed.
     void setDeceleration(float deceleration);               // Sets the movement speed to newSpeed.
     void setPlayerRotationSpeed(float newRotationSpeed);    // Sets the rotation speed to newRotationSpeed.
+    void setFireCooldown(float newFireSpeed);// New method to set the fire cooldown
     // void setFireRate(float newFireRate);//: Sets the fire rate to newFireRate.
 
+   
+
+    
+    
 };
 #endif

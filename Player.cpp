@@ -109,6 +109,13 @@ std::vector<Projectile*>* Player::getProjectiles(){
     return &projectiles;
 };//: Returns the player’s rotation speed.
 
+    float Player:: getFireCooldown() const{
+        return fireCooldown;
+    };
+
+    
+   
+
 //Setters:
 void Player::setMaxVelocity(float maxVelocity){
     this->maxVelocity = maxVelocity;
@@ -122,3 +129,7 @@ void Player::setDeceleration(float deceleration){
 void Player::setPlayerRotationSpeed(float playerRotationSpeed){
     this->playerRotationSpeed = playerRotationSpeed;
 };//: Sets the rotation speed to newRotationSpeed.
+
+ void Player::setFireCooldown(float newFireSpeed){
+    fireCooldown=newFireSpeed;
+ };// set the fire cooldown
