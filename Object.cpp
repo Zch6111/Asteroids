@@ -63,7 +63,9 @@ bool Object::checkCollision(Object& other){
 };// Checks if this object is colliding with another object (other).
 void Object::onCollision(Object other){};//Handles the logic when a collision with another object occurs.
 
-
+void Object::render(sf::RenderWindow& window) {
+    window.draw(*shape);
+}
 //Getters
 sf::Vector2f Object::getPosition(){
     return position;

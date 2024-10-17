@@ -11,3 +11,7 @@ void SpeedUpgrade::apply(Player& player) {
     player.setMaxVelocity(player.getMaxVelocity() + speedIncrease);
     setActive(false); // Deactivate the upgrade after applying
 }
+// render 方法实现
+void SpeedUpgrade::render(sf::RenderWindow& window) {
+    Object::render(window); // 调用基类的 render 方法
+}

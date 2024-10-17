@@ -8,6 +8,7 @@ class Upgrade : public Object {
 public:
     Upgrade(sf::Shape* objectShape, sf::Vector2f originPosition);
     virtual void apply(Player& player) = 0; // Pure virtual function
+void render(sf::RenderWindow& window) override;
 };
 
 #endif

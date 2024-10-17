@@ -11,6 +11,8 @@ public:
     SpeedUpgrade(sf::Vector2f originPosition, float increaseAmount);
 
     void apply(Player& player) override;
+    void render(sf::RenderWindow& window) override;
 };
+
 
 #endif

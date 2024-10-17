@@ -4,3 +4,7 @@ Upgrade::Upgrade(sf::Shape* objectShape, sf::Vector2f originPosition)
     : Object(objectShape, originPosition, sf::Vector2f(0.f, 0.f), 0.f, 0.f) {
     // Initialize the upgrade object
 }
+
+void Upgrade::render(sf::RenderWindow& window) {
+    Object::render(window);
+}
