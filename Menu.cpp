@@ -68,36 +68,39 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
   GameState state = MAIN_MENU;
   while (window.isOpen()) {
     sf::Event event;
-
+    // main loop for making up and down operations in menu
     if (state == MAIN_MENU) {
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
-          window.close();
+          window.close();  // close the menu
         }
         if (event.type == sf::Event::KeyPressed) {
           if (event.key.code == sf::Keyboard::Up) {
-            moveUp();
+            moveUp();  // Use moveUp function
           }
           if (event.key.code == sf::Keyboard::Down) {
-            moveDown();
+            moveDown();  // Use moveDown function
           }
+          // main loop for what next after user type a operation
           if (event.key.code == sf::Keyboard::Return) {
             int selectedItem = getSelectedItem();
             if (selectedItem == 0) {
-              std::cout << "Starting Game..." << std::endl;
+              std::cout << "Starting Game..."
+                        << std::endl;  // move to the game page
 
             } else if (selectedItem == 1) {
               std::cout << "Info..." << std::endl;
             } else if (selectedItem == 2) {
               std::cout << "Settings..." << std::endl;
             } else if (selectedItem == 3) {
-              state = HIGH_SCORES;
+              state = HIGH_SCORES;  // move to the score page
             } else if (selectedItem == 4) {
               state = EXIT;
             }
           }
         }
       }
+      // display the menu
       window.clear(sf::Color::Black);
       draw(window);
       window.display();
@@ -110,11 +113,11 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores) {
         }
         if (event.type == sf::Event::KeyPressed &&
             event.key.code == sf::Keyboard::C) {
-          highScores.clear();
+          highScores.clear();  // type c to clear all scores
         }
         if (event.type == sf::Event::KeyPressed &&
             event.key.code == sf::Keyboard::Escape) {
-          state = MAIN_MENU;
+          state = MAIN_MENU;  // type esc to back to menu
         }
       }
       // draw the high scores
