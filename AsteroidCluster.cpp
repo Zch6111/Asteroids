@@ -7,6 +7,7 @@ AsteroidCluster::AsteroidCluster(sf::Vector2f originPosition, sf::Vector2f origi
     asteroids = new Asteroid*[1];
     asteroids[0] = new Asteroid(3, originPosition, originVelocity);
     totalAsteroids = 1;
+    active = 1;
 };
 
 void AsteroidCluster::updateCluster(float deltaTime){

@@ -53,7 +53,7 @@ void Asteroid::update(float deltaTime){
 int Asteroid::getScore(){
     return score;
 };
-int Asteroid::clearScore(){
+void Asteroid::clearScore(){
     score = 0;
 };
 int Asteroid::getSize(){

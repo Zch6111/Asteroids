@@ -15,7 +15,7 @@ public:
     void update(float deltaTime);
 
     static int getScore();
-    static int clearScore();
+    static void clearScore();
     int getSize();
 };
 
