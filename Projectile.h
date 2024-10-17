@@ -5,7 +5,7 @@
 
 class Projectile: public Object{
 public:
-    Projectile(float speed, sf::Vector2f originPosition, sf::Vector2f originVelocity, float originRotation);
+    Projectile(float speed, sf::Vector2f playerPosition, float playerRotation);
 };
 
 #endif

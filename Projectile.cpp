@@ -3,14 +3,16 @@
 #include "Projectile.h"
 #include "Object.h"
 
-Projectile::Projectile(float speed, sf::Vector2f playerPosition, sf::Vector2f playerVelocity, float playerRotation): Object(new sf::CircleShape(2.5f, 4), playerPosition, playerVelocity, playerRotation, 0.f){
+const sf::Vector2f zero(0, 0);
+
+Projectile::Projectile(float speed, sf::Vector2f playerPosition, float playerRotation): Object(new sf::CircleShape(2.5f, 4), playerPosition, zero, playerRotation, 0.f){
     sf::Shape* shape = getShape();
     
-    // sf::Vector2f direction(std::sin(playerRotation * M_PI / 180.f), -std::cos(playerRotation * M_PI / 180.f)); // Get the direction of the player as a vector of length one
+    sf::Vector2f direction(std::sin(playerRotation * M_PI / 180.f), -std::cos(playerRotation * M_PI / 180.f)); // Get the direction of the player as a vector of length one
 
-    // setVelocity(getVelocity() + speed*direction);
+    setVelocity(speed*direction);
 
-    shape->setOrigin(playerPosition);
+    shape->setOrigin(5.f,5.f);
     (*shape).setFillColor(sf::Color(255, 255, 0));
 
     shape->setOutlineThickness(1.f);

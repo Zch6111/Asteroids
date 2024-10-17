@@ -22,7 +22,7 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
     playerRotationSpeed = 4.f;
     fireCooldown = 0.f;
     fireSpeed = 50.f;
-    projectileSpeed = 10.f;
+    projectileSpeed = 5.f;
 };
 
 void Player::update(float deltaTime){
@@ -67,7 +67,7 @@ void Player::fire(){
     // shoot projectile
     std::cout << "pew" << std::endl;
     Projectile* newProjectile;
-    newProjectile = new Projectile(projectileSpeed, getPosition(), getVelocity(), getRotation());
+    newProjectile = new Projectile(projectileSpeed, getPosition(), getRotation());
     projectiles.push_back(newProjectile);
 
     fireCooldown = fireSpeed;
