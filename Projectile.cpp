@@ -18,3 +18,22 @@ Projectile::Projectile(float speed, sf::Vector2f playerPosition, float playerRot
     shape->setOutlineThickness(1.f);
     shape->setOutlineColor(sf::Color(140, 140, 140));
 };
+
+void Projectile::update(float deltaTime){
+    Object::update(deltaTime); // Call object update funtion
+
+    // Wrap the object around the screen
+    if (getPosition().x > 800){
+        setActive(0);
+    }
+    if (getPosition().x < 0){
+        setActive(0);
+    }
+    if (getPosition().y > 600){
+        setActive(0);
+    }
+    if (getPosition().y < 0){
+        setActive(0);
+    }
+
+};

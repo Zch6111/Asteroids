@@ -6,6 +6,8 @@
 #include"Player.h"
 
 const sf::Vector2f centreOfScreen(400.f, 300.f);
+const sf::Vector2f ScreenWidth(800.f, 0);
+const sf::Vector2f ScreenHeight(0, 600.f);
 
 Player::Player(): Object(new sf::CircleShape(20, 3)){
     sf::Shape* shape = getShape(); // get shape pointer
@@ -28,11 +30,29 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
 void Player::update(float deltaTime){
     Object::update(deltaTime); // Call object update funtion
 
+    // Wrap the object around the screen
+    if (getPosition().x > 800){
+        setPosition(getPosition() - ScreenWidth);
+    }
+    if (getPosition().x < 0){
+        setPosition(getPosition() + ScreenWidth);
+    }
+    if (getPosition().y > 600){
+        setPosition(getPosition() - ScreenHeight);
+    }
+    if (getPosition().y < 0){
+        setPosition(getPosition() + ScreenHeight);
+    }
+
     if (fireCooldown>0){
         fireCooldown -= deltaTime;
     } // if the player has not cooled down yet, decreases it's firecooldown timer
 
     for (int i=0; i < projectiles.size(); i++){
+        if (projectiles[i]->isActive() == 0){
+            projectiles.erase(projectiles.begin() + i);
+            continue;
+        }
         projectiles[i]->update(deltaTime);
     }
 
@@ -65,7 +85,6 @@ void Player::fire(){
     if (fireCooldown > 0) {return;}
 
     // shoot projectile
-    std::cout << "pew" << std::endl;
     Projectile* newProjectile;
     newProjectile = new Projectile(projectileSpeed, getPosition(), getRotation());
     projectiles.push_back(newProjectile);

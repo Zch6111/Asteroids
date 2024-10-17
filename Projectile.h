@@ -6,6 +6,8 @@
 class Projectile: public Object{
 public:
     Projectile(float speed, sf::Vector2f playerPosition, float playerRotation);
+
+    void update(float deltaTime);
 };
 
 #endif

@@ -12,6 +12,8 @@ public:
     Asteroid(int size, sf::Vector2f originPosition, sf::Vector2f originVelocity);
     ~Asteroid();
 
+    void update(float deltaTime);
+
     static int getScore();
     static int clearScore();
     int getSize();
