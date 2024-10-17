@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 #include "HighScores.h"
 #include "Menu.h"
@@ -24,11 +25,13 @@ int main() {
 
     // Create a list of upgrades using smart pointers
     std::vector<std::unique_ptr<Upgrade>> upgrades;
-    upgrades.emplace_back(std::make_unique<SpeedUpgrade>(sf::Vector2f(100, 100), 5.0f));          // Position (100, 100), speed increase amount 5.0
-    upgrades.emplace_back(std::make_unique<FireSpeedUpgrade>(sf::Vector2f(300, 300), 10.0f));   // Position (300, 300), fire speed decrease amount 10.0
 
-    // Run the main menu
-    menu.run(window, highScores, player);
+    // Create a SpeedUpgrade at the beginning and display it on the screen
+    auto initialSpeedUpgrade = std::make_unique<SpeedUpgrade>(sf::Vector2f(300, 300), 5.0f);  // Position (300, 300)
+    upgrades.push_back(std::move(initialSpeedUpgrade));  // Add it to the upgrades list
+
+    // Print to verify the upgrade is active and at the correct position
+    std::cout << "Initial SpeedUpgrade created at (300, 300)" << std::endl;
 
     // Main game loop
     sf::Clock clock;
@@ -44,7 +47,7 @@ int main() {
             // Handle other events, such as keyboard input
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::W)
-                    player.moveForward();
+                    player.moveFoward();
                 if (event.key.code == sf::Keyboard::S)
                     player.moveBackward();
                 if (event.key.code == sf::Keyboard::A)
@@ -62,13 +65,14 @@ int main() {
         // Check for collisions between the player and upgrades, then apply upgrades
         for (auto& upgrade : upgrades) {
             if (upgrade->isActive() && player.checkCollision(*upgrade)) {
-                upgrade->apply(player);          // Apply the upgrade to the player
-                upgrade->setActive(false);       // Deactivate the upgrade
+                std::cout << "Player collected SpeedUpgrade!" << std::endl;
+                upgrade->apply(player);  // Apply the upgrade to the player
+                upgrade->setActive(false);  // Deactivate the upgrade
             }
         }
 
         // Render the game
-        window.clear();
+        window.clear(sf::Color::Black);  // Clear the window with black background
 
         // Render the player
         player.render(window);
@@ -76,14 +80,12 @@ int main() {
         // Render active upgrades
         for (auto& upgrade : upgrades) {
             if (upgrade->isActive()) {
-                upgrade->render(window);             // Only render active upgrades
+                upgrade->render(window);  // Only render active upgrades
             }
         }
 
-        window.display();
+        window.display();  // Display the rendered frame
     }
-
-    // No need to manually delete upgrade objects; smart pointers manage memory automatically
 
     return 0;
 }
