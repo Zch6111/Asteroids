@@ -194,15 +194,15 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
             allAsteroids.push_back(a1);
 
             // spawn upgrades in
-            Upgrade* u1;
-            sf::Vector2f u1Position(100.f, 450.f);
-            u1 = new SpeedUpgrade(&player, u1Position);
-            allUpgrades.emplace_back(u1);
+            // Upgrade* u1;
+            // sf::Vector2f u1Position(100.f, 450.f);
+            // u1 = new SpeedUpgrade(&player, u1Position);
+            // allUpgrades.push_back(u1);
 
-            Upgrade* u2;
-            sf::Vector2f u2Position(700.f, 150.f);
-            u1 = new FireSpeedUpgrade(&player, u2Position);
-            allUpgrades.emplace_back(u2);
+            // Upgrade* u2;
+            // sf::Vector2f u2Position(700.f, 150.f);
+            // u1 = new FireSpeedUpgrade(&player, u2Position);
+            // allUpgrades.push_back(u2);
 
             // reset timer
             timer = waveTime;
