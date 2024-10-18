@@ -14,7 +14,7 @@ Player::Player(): Object(new sf::CircleShape(20, 3)){
     shape->setOrigin(20, 20); // set the point of rotation to the centre of the shape
     setPosition(centreOfScreen); // place the ship in the centre of the screen
     // colour the ship
-    (*shape).setFillColor(sf::Color(50, 50, 50));
+    (*shape).setFillColor(sf::Color(0, 150, 0));
     shape->setOutlineThickness(1.f);
     shape->setOutlineColor(sf::Color(255, 255, 255));
     // initialise variables

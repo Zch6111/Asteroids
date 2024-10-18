@@ -1,13 +1,16 @@
 #include "Asteroid.h"
 #include "AsteroidCluster.h"
+#include "Player.h"
+#include "Projectile.h"
 
 #include <iostream>
 
-AsteroidCluster::AsteroidCluster(sf::Vector2f originPosition, sf::Vector2f originVelocity){
+AsteroidCluster::AsteroidCluster(Player* player, sf::Vector2f originPosition, sf::Vector2f originVelocity){
     asteroids = new Asteroid*[1];
     asteroids[0] = new Asteroid(3, originPosition, originVelocity);
     totalAsteroids = 1;
     active = 1;
+    this->player = player;
 };
 
 void AsteroidCluster::updateCluster(float deltaTime){
@@ -21,9 +24,17 @@ void AsteroidCluster::updateCluster(float deltaTime){
 
 void AsteroidCluster::checkCluster(){
     for (int i = 0; i < totalAsteroids; i++){
+        for (int j = 0; j < player->getProjectiles()->size(); j++){
+            if (asteroids[i]->checkCollision((*(player->getProjectiles()))[j])){
+                split(asteroids[i], i);
+                player->getProjectiles()->erase(player->getProjectiles()->begin() + j);
+            }
+        }
         if (asteroids[i]->isActive() == 1) {continue;}
 
-        split(asteroids[i], i);
+        if (asteroids[i]->checkCollision(player)){
+            player->setActive(0);
+        }
     }
 };
 
@@ -38,7 +49,6 @@ void AsteroidCluster::split(Asteroid* parentAsteroid, int arrayPosition){
     }
 
     if (parentAsteroid->getSize() <= 1) {
-        std::cout << Asteroid::getScore() << " deleting mini" << std::endl;
         Asteroid** newAsteroids = new Asteroid*[totalAsteroids-1];
 
         int j = 0;
@@ -52,7 +62,6 @@ void AsteroidCluster::split(Asteroid* parentAsteroid, int arrayPosition){
         asteroids = newAsteroids;
         totalAsteroids--;
     } else {
-        std::cout << Asteroid::getScore() << " deleting big asteroid" << std::endl;
         sf::Vector2f newVelocity(parentAsteroid->getVelocity().y, -parentAsteroid->getVelocity().x);
 
         Asteroid* childAsteroidA;

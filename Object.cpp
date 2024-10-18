@@ -53,12 +53,12 @@ void Object::update(float deltaTime){
     (*shape).setRotation(rotation);
 };// Updates the object’s state based on time elapsed (deltaTime).
 
-bool Object::checkCollision(Object& other){
-  if (!active || !other.active) return false;
+bool Object::checkCollision(Object* other){
+  if (active == 0 || other->active == 0) return false;
 
-  float distance = std::hypot(position.x - other.position.x, position.y - other.position.y);
+  float distance = std::hypot(position.x - other->position.x, position.y - other->position.y);
   float radiusA = shape->getGlobalBounds().width / 2.f;
-  float radiusB = other.shape->getGlobalBounds().width / 2.f;
+  float radiusB = other->shape->getGlobalBounds().width / 2.f;
   return distance < (radiusA + radiusB);
 };// Checks if this object is colliding with another object (other).
 void Object::onCollision(Object other){};//Handles the logic when a collision with another object occurs.

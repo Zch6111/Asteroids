@@ -7,6 +7,7 @@
 
 int main()
 {
+    Player player;
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
@@ -15,7 +16,7 @@ int main()
 
     int i = 0;
 
-    AsteroidCluster a1(position, velocity);
+    AsteroidCluster a1(&player, position, velocity);
 
     // run the program as long as the window is open
     sf::Clock clock;
