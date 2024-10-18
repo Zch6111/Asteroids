@@ -27,6 +27,10 @@ int main()
     sf::Clock clock;
     while (window.isOpen())
     {
+        if (player.isActive() == 0) {
+            std::cout << "player hit" << std::endl;
+            window.close();
+        }
         sf::Time elapsed = clock.restart();
         float deltaTime = 60 * elapsed.asSeconds();
         // check all the window's events that were triggered since the last iteration of the loop

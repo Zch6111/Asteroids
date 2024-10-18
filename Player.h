@@ -16,7 +16,6 @@ private:
     float fireCooldown;                     // Time remaining until the player can fire again.
     float projectileSpeed;                  // Speed of projectile
     std::vector<Projectile*> projectiles;   // List of projectiles
-    // std::vector<UpgradeType> upgrades;   // A list of upgrades the player has collected.
 
 public:
     Player();                               // Player Constructor

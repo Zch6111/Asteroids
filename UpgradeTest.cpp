@@ -18,7 +18,8 @@ int main()
 
     sf::Vector2f originPosition(100.f,100.f);
 
-    FireSpeedUpgrade upgrade1(&player, originPosition, 30.f, 10.f);
+    SpeedUpgrade upgrade1(&player, originPosition, 10.f, 0.5f, 0.5f);
+    FireSpeedUpgrade upgrade2(&player, originPosition+originPosition, 10.f, 5.f);
 
     // run the program as long as the window is open
     sf::Clock clock;
@@ -54,6 +55,7 @@ int main()
         // update game
         player.update(deltaTime);
         upgrade1.update(deltaTime);
+        upgrade2.update(deltaTime);
         // clear the window with black color
         window.clear(sf::Color::Black);
 
@@ -64,6 +66,7 @@ int main()
             window.draw(*((*(player.getProjectiles()))[i]->getShape()));
         }
         if (upgrade1.isActive()) {window.draw(*(upgrade1.getShape()));}
+        if (upgrade2.isActive()) {window.draw(*(upgrade2.getShape()));}
         
         // std::cout << a1.getTotalAsteroids() << std::endl;
 
