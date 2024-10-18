@@ -6,7 +6,7 @@
 
 class Upgrade : public Object {
 public:
-    Upgrade(sf::Shape* objectShape, sf::Vector2f originPosition);
+    Upgrade(sf::Shape* objectShape, sf::Vector2f originPosition);//Constructor initializes the upgrade with shape and starting position
     virtual void apply(Player& player) = 0; // Pure virtual function
 void render(sf::RenderWindow& window) override;
 };

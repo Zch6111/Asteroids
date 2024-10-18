@@ -4,11 +4,11 @@
 FireSpeedUpgrade::FireSpeedUpgrade(sf::Vector2f originPosition, float decreaseAmount)
     : Upgrade(new sf::CircleShape(10.f), originPosition), cooldownDecrease(decreaseAmount) {
     sf::Shape* shape = getShape();
-    shape->setFillColor(sf::Color::Blue);
-    shape->setOrigin(10.f, 10.f);
+    shape->setFillColor(sf::Color::Blue);//fill color as blue
+    shape->setOrigin(10.f, 10.f);// Set the origin to the center
 
-    shape->setPosition(originPosition); 
-}
+    shape->setPosition(originPosition); // Set the initial position
+} 
 
 void FireSpeedUpgrade::apply(Player& player) {
     player.setFireCooldown(player.getFireCooldown() - cooldownDecrease);
