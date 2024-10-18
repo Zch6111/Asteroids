@@ -6,6 +6,8 @@ FireSpeedUpgrade::FireSpeedUpgrade(sf::Vector2f originPosition, float decreaseAm
     sf::Shape* shape = getShape();
     shape->setFillColor(sf::Color::Blue);
     shape->setOrigin(10.f, 10.f);
+
+    shape->setPosition(originPosition); 
 }
 
 void FireSpeedUpgrade::apply(Player& player) {

@@ -5,6 +5,7 @@ SpeedUpgrade::SpeedUpgrade(sf::Vector2f originPosition, float increaseAmount)
     sf::Shape* shape = getShape();
     shape->setFillColor(sf::Color::Green);
     shape->setOrigin(10.f, 10.f);
+    shape->setPosition(originPosition); 
 }
 
 void SpeedUpgrade::apply(Player& player) {
