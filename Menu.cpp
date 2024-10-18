@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "Asteroid.h"
 
 Menu::Menu(float width, float height) {
   // Load the font for rendering the menu text
@@ -129,6 +130,12 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
     } else if (state == EXIT) {
       window.close();
     } else if (state == GAME){
+        if (player.isActive() == 0){
+            highScores.addScore(Asteroid::getScore());      // write the score into file
+            player.reset();                                 // reset player's position
+            state = MAIN_MENU;                              // go back to main menu
+        } // if the player has died reset the player, add the score to the system, and go back to main menu
+
         sf::Time elapsed = clock.restart();
         float deltaTime = 60 * elapsed.asSeconds();
         // check all the window's events that were triggered since the last iteration of the loop
@@ -156,11 +163,10 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
                 player.turnRight();
             
+            // player firing
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
                 player.fire();
         }
-
-        // check for user input
         
         // update game
         player.update(deltaTime);
