@@ -6,6 +6,8 @@
 
 #include "HighScores.h"
 #include "Player.h"
+#include "AsteroidCluster.h"
+#include "Upgrade.h"
 enum GameState { MAIN_MENU, HIGH_SCORES, EXIT, GAME };
 
 class Menu {
@@ -30,5 +32,5 @@ class Menu {
   int getSelectedItem();
 
   // Run the menu
-  void run(sf::RenderWindow& window, HighScores& highScores, Player& player);
+  void run(sf::RenderWindow& window, HighScores& highScores, Player& player, std::vector<AsteroidCluster*>& allAsteroids, std::vector<Upgrade*>& allUpgrades);
 };

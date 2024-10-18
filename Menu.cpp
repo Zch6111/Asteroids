@@ -68,7 +68,7 @@ void Menu::moveDown() {
 int Menu::getSelectedItem() { return selectedItem; }
 
 // run function which can run the menu
-void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player) {
+void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player, std::vector<AsteroidCluster*>& allAsteroids, std::vector<Upgrade*>& allUpgrades) {
   GameState state = MAIN_MENU;
   sf::Clock clock;
   while (window.isOpen()) {
@@ -133,6 +133,8 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
         if (player.isActive() == 0){
             highScores.addScore(Asteroid::getScore());      // write the score into file
             player.reset();                                 // reset player's position
+            allAsteroids.clear();                           // clear Asteroids vector
+            allUpgrades.clear();                            // clear Upgrades Vector
             state = MAIN_MENU;                              // go back to main menu
         } // if the player has died reset the player, add the score to the system, and go back to main menu
 
@@ -147,9 +149,11 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
                 window.close();
             
             // player movement
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                highScores.addScore(Asteroid::getScore());      // write the score into file
+                player.reset();                                 // reset player's position
                 state = MAIN_MENU;
-
+            }
             // player movement
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
                 player.moveFoward();
@@ -169,6 +173,12 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
         }
         
         // update game
+        for (int i=0; i < allAsteroids.size(); i++){
+            allAsteroids[i]->updateCluster(deltaTime);
+        }
+        for (int i=0; i < allUpgrades.size(); i++){
+            allUpgrades[i]->update(deltaTime);
+        }
         player.update(deltaTime);
         // clear the window with black color
         window.clear(sf::Color::Black);
@@ -178,6 +188,14 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player)
         window.draw(*(player.getShape()));
         for (int i=0; i < player.getProjectiles()->size(); i++){
             window.draw(*((*(player.getProjectiles()))[i]->getShape()));
+        }
+        for (int i=0; i < allAsteroids.size(); i++){
+            for (int j=0; j < (allAsteroids[i]->getTotalAsteroids()); j++){
+                window.draw(*((allAsteroids[i]->getArray())[j]->getShape()));
+            }
+        }
+        for (int i=0; i < allUpgrades.size(); i++){
+            window.draw(*(allUpgrades[i]->getShape()));
         }
         // end the current frame
         window.display();

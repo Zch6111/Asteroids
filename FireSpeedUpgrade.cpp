@@ -1,11 +1,7 @@
 #include "FireSpeedUpgrade.h"
 #include"Player.h"
 
-FireSpeedUpgrade::FireSpeedUpgrade(Player* player, sf::Vector2f originPosition, float fireSpeedDecrease, float projectileSpeedIncrease): Upgrade(player, new sf::CircleShape(15.f,4), originPosition){
-    // set increase/decrease variables
-    this->fireSpeedDecrease = fireSpeedDecrease;
-    this->projectileSpeedIncrease = projectileSpeedIncrease;
-
+FireSpeedUpgrade::FireSpeedUpgrade(Player* player, sf::Vector2f originPosition): Upgrade(player, new sf::CircleShape(15.f,4), originPosition){
     // set shape colour/origin
     sf::Shape* shape = getShape();
     shape->setFillColor(sf::Color::Blue);//fill color as blue

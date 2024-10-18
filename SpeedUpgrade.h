@@ -5,12 +5,12 @@
 
 class SpeedUpgrade : public Upgrade {
 private:
-    float maxVelocityIncrease;      // how much max velocity increases by
-    float accelerationIncrease;     // how much acceleration increases by
-    float decelerationMultiplier;   // how much deceleration is multiplied by
+    const float maxVelocityIncrease = 10.f;         // how much max velocity increases by
+    const float accelerationIncrease = 0.2f;        // how much acceleration increases by
+    const float decelerationMultiplier = 0.5f;      // how much deceleration is multiplied by
 public:
     // Constructor to initialize position and speed increase amount
-    SpeedUpgrade(Player* player, sf::Vector2f originPosition, float maxVelocityIncrease, float accelerationIncrease, float decelerationMultiplier);
+    SpeedUpgrade(Player* player, sf::Vector2f originPosition);
     void apply(Player* player) override;//Applies the speed upgrade to the player
 };
 

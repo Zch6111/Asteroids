@@ -5,11 +5,11 @@
 
 class FireSpeedUpgrade : public Upgrade {
 private:
-    float fireSpeedDecrease;
-    float projectileSpeedIncrease;
+    const float fireSpeedDecrease = 10.f;
+    const float projectileSpeedIncrease = 5.f;
 
 public:
-    FireSpeedUpgrade(Player* player, sf::Vector2f originPosition, float fireSpeedDecrease, float projectileSpeedIncrease);
+    FireSpeedUpgrade(Player* player, sf::Vector2f originPosition);
 
     void apply(Player* player) override;
 };

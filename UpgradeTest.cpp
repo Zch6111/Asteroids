@@ -18,8 +18,8 @@ int main()
 
     sf::Vector2f originPosition(100.f,100.f);
 
-    SpeedUpgrade upgrade1(&player, originPosition, 10.f, 0.5f, 0.5f);
-    FireSpeedUpgrade upgrade2(&player, originPosition+originPosition, 10.f, 5.f);
+    SpeedUpgrade upgrade1(&player, originPosition);
+    FireSpeedUpgrade upgrade2(&player, originPosition+originPosition);
 
     // run the program as long as the window is open
     sf::Clock clock;

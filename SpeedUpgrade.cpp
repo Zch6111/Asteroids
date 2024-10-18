@@ -1,11 +1,6 @@
 #include "SpeedUpgrade.h"
 
-SpeedUpgrade::SpeedUpgrade(Player* player, sf::Vector2f originPosition, float maxVelocityIncrease, float accelerationIncrease, float decelerationMultiplier): Upgrade(player, new sf::CircleShape(15.f, 4), originPosition){
-    // set increase/decrease variables
-    this->maxVelocityIncrease = maxVelocityIncrease;
-    this->accelerationIncrease = accelerationIncrease;
-    this->decelerationMultiplier = decelerationMultiplier;
-
+SpeedUpgrade::SpeedUpgrade(Player* player, sf::Vector2f originPosition): Upgrade(player, new sf::CircleShape(15.f, 4), originPosition){
     // set shape colour/origin
     sf::Shape* shape = getShape();
     shape->setFillColor(sf::Color::Blue);  // Set the color to blue
