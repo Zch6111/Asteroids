@@ -1,8 +1,13 @@
+#include "HighScores.h"
 #include "Menu.h"
 #include "Object.h"
 #include "Player.h"
 #include "Projectile.h"
 #include "Asteroid.h"
+#include "AsteroidCluster.h"
+#include "Upgrade.h"
+#include "SpeedUpgrade.h"
+#include "FireSpeedUpgrade.h"
 
 Menu::Menu(float width, float height) {
   // Load the font for rendering the menu text
@@ -33,6 +38,8 @@ Menu::Menu(float width, float height) {
 
   // Start with the first item selected
   selectedItem = 0;
+
+  timer = waveTime; // set timer to waveTime
 }
 
 // Draws all the menu items on the window
@@ -128,7 +135,10 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
       window.display();
 
     } else if (state == EXIT) {
-      window.close();
+      window.close();   
+    
+
+
     } else if (state == GAME){
         if (player.isActive() == 0){
             highScores.addScore(Asteroid::getScore());      // write the score into file
@@ -172,6 +182,31 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
                 player.fire();
         }
         
+        // spawn enemies if timer less than 0
+        if (timer>0) {
+            timer -= deltaTime;
+        } else {
+            // spawn asteroid in
+            AsteroidCluster* a1;
+            sf::Vector2f asteroidVelocity(1.f, 1.f);
+            sf::Vector2f asteroidPosition(100.f, 150.f);
+            a1 = new AsteroidCluster(&player, asteroidPosition, asteroidVelocity);
+            allAsteroids.push_back(a1);
+
+            // spawn upgrades in
+            Upgrade* u1;
+            sf::Vector2f u1Position(100.f, 450.f);
+            u1 = new SpeedUpgrade(&player, u1Position);
+            allUpgrades.emplace_back(u1);
+
+            Upgrade* u2;
+            sf::Vector2f u2Position(700.f, 150.f);
+            u1 = new FireSpeedUpgrade(&player, u2Position);
+            allUpgrades.emplace_back(u2);
+
+            // reset timer
+            timer = waveTime;
+        }
         // update game
         for (int i=0; i < allAsteroids.size(); i++){
             allAsteroids[i]->updateCluster(deltaTime);

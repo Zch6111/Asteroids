@@ -29,11 +29,7 @@ int main() {
     std::vector<AsteroidCluster*> allAsteroids;
     std::vector<Upgrade*> allUpgrades;
 
-    AsteroidCluster* a1;
-    sf::Vector2f velocity(1.f, 1.f);
-    sf::Vector2f position(100.f, 150.f);
-    a1 = new AsteroidCluster(&player, position, velocity);
-    allAsteroids.push_back(a1);
+
     
     // Start with the main menu
     menu.run(window, highScores, player, allAsteroids, allUpgrades);
