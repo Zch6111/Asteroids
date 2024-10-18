@@ -30,11 +30,10 @@ void AsteroidCluster::checkCluster(){
                 player->getProjectiles()->erase(player->getProjectiles()->begin() + j);
             }
         }
-        if (asteroids[i]->isActive() == 1) {continue;}
-
         if (asteroids[i]->checkCollision(player)){
             player->setActive(0);
         }
+        
     }
 };
 
