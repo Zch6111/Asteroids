@@ -39,7 +39,7 @@ Menu::Menu(float width, float height) {
   // Start with the first item selected
   selectedItem = 0;
 
-  timer = waveTime; // set timer to waveTime
+  timer = 0; // set timer to waveTime
 }
 
 // Draws all the menu items on the window
@@ -97,6 +97,7 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
           if (event.key.code == sf::Keyboard::Return) {
             int selectedItem = getSelectedItem();
             if (selectedItem == 0) {
+              player.setActive(1);
               state = GAME;
             } else if (selectedItem == 1) {
               std::cout << "Info..." << std::endl;
@@ -146,6 +147,7 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
             allAsteroids.clear();                           // clear Asteroids vector
             allUpgrades.clear();                            // clear Upgrades Vector
             state = MAIN_MENU;                              // go back to main menu
+            timer = 0;
         } // if the player has died reset the player, add the score to the system, and go back to main menu
 
         sf::Time elapsed = clock.restart();
@@ -162,6 +164,10 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
                 highScores.addScore(Asteroid::getScore());      // write the score into file
                 player.reset();                                 // reset player's position
+                allAsteroids.clear();                           // clear Asteroids vector
+                allUpgrades.clear();                            // clear Upgrades Vector
+                state = MAIN_MENU;                              // go back to main menu
+                timer = 0;
                 state = MAIN_MENU;
             }
             // player movement
@@ -194,15 +200,18 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
             allAsteroids.push_back(a1);
 
             // spawn upgrades in
-            // Upgrade* u1;
-            // sf::Vector2f u1Position(100.f, 450.f);
-            // u1 = new SpeedUpgrade(&player, u1Position);
-            // allUpgrades.push_back(u1);
+            if (allUpgrades.size() == 0){
+                Upgrade* u1;
+                sf::Vector2f u1Position(100.f, 450.f);
+                u1 = new SpeedUpgrade(&player, u1Position);
+                allUpgrades.push_back(u1);
 
-            // Upgrade* u2;
-            // sf::Vector2f u2Position(700.f, 150.f);
-            // u1 = new FireSpeedUpgrade(&player, u2Position);
-            // allUpgrades.push_back(u2);
+                Upgrade* u2;
+                sf::Vector2f u2Position(700.f, 150.f);
+                u2 = new FireSpeedUpgrade(&player, u2Position);
+                allUpgrades.push_back(u2);
+            }
+            
 
             // reset timer
             timer = waveTime;
@@ -230,7 +239,9 @@ void Menu::run(sf::RenderWindow& window, HighScores& highScores, Player& player,
             }
         }
         for (int i=0; i < allUpgrades.size(); i++){
-            window.draw(*(allUpgrades[i]->getShape()));
+            if (allUpgrades[i]->isActive()){
+                window.draw(*(allUpgrades[i]->getShape()));
+            }
         }
         // end the current frame
         window.display();

@@ -16,7 +16,7 @@ class Menu {
   std::vector<sf::Text> menuItems;  // List of menu items
   int selectedItem;                 // Index of the currently selected item
   float timer;
-  const float waveTime = 500.f;
+  const float waveTime = 1000.f;
  public:
   // Constructor: Initializes the menu with given window width and height
   Menu(float width, float height);

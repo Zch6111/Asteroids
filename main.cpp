@@ -12,6 +12,7 @@
 #include "FireSpeedUpgrade.h"
 
 
+
 int main() {
     // Create an SFML window with 800x600 resolution
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Menu");
